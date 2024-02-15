@@ -43,7 +43,6 @@ public class DoctorControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[1].surname").value("222"));
-//                .andExpect(jsonPath("$[0].facilities[0].name").value(null));
     }
 
     @Test
@@ -76,7 +75,6 @@ public class DoctorControllerTest {
     void assignToFacility_dataCorrect_ReturnDoctor() throws Exception {
         String email = "email@gmail.com";
         Long id = 1L;
-
         when(doctorService.assignToFacility(email, id)).thenReturn(createDoctor1());
         mockMvc.perform(put("/doctors/email@gmail.com/facilities/1")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -85,9 +83,7 @@ public class DoctorControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.name").value("111"));
-//                .andExpect(jsonPath("$.facilities[0].city").value(null));
     }
-
 
     private static DoctorDTO createDoctor1() {
         return new DoctorDTO("111", "111", "111", "111"

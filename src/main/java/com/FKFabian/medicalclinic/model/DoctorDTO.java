@@ -15,7 +15,3 @@ public class DoctorDTO {
     private final String specialization;
     private final List<Long> facilitiesId;
 }
-
-
-//DTO - reqconstr
-//model - noargcost i allargcons

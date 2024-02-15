@@ -3,6 +3,7 @@ package com.FKFabian.medicalclinic.exceptionhandler;
 import com.FKFabian.medicalclinic.exceptions.DoctorNotFoundException;
 import com.FKFabian.medicalclinic.exceptions.FacilityNotFoundException;
 import com.FKFabian.medicalclinic.exceptions.MedicalExceptions;
+import com.FKFabian.medicalclinic.exceptions.ObjectAlreadyExistException;
 import com.FKFabian.medicalclinic.exceptions.PatientNotFoundException;
 import com.FKFabian.medicalclinic.message.Message;
 import jakarta.validation.ConstraintViolationException;
@@ -42,9 +43,13 @@ public class GlobalExceptionHandler {
         return new Message(exception.getMessage(), LocalDateTime.now(), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ObjectAlreadyExistException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public Message handlerObjectAlreadyExistException(ObjectAlreadyExistException exception) {
+        return new Message(exception.getMessage(), LocalDateTime.now(), HttpStatus.CONFLICT);
+    }
 
     @ExceptionHandler(MedicalExceptions.class)
-    // tutaj typ zwracany ResponseEntity i bez adnotacji @ ResponseStatus, bo to nadrzeny wyjątek i nie znamy statusu http tylko musimy go pobrac getterem.
     public ResponseEntity<Message> handlerMedicalExceptions(MedicalExceptions exceptions) {
         return ResponseEntity
                 .status(exceptions.getHttpStatus())
@@ -62,16 +67,4 @@ public class GlobalExceptionHandler {
     public Message handleConstraintViolationException(ConstraintViolationException exception) {
         return new Message(exception.getMessage(), LocalDateTime.now(), HttpStatus.BAD_REQUEST);
     }
-
 }
-
-//    @ExceptionHandler(NotFoundPatientException.class)
-//    public ResponseEntity<String> handlerNotFoundPatient(NotFoundPatientException e) {
-//        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-//    }
-//     public ResponseEntity<String> handlerIllegalArgumentException(IllegalArgumentException e) {
-//        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-//    }
-//    <--- Taka wersja w przypadku @ControllerAdvice: Bez Adnotacji @ResponseStatus,
-//                Typ zwracany metody to ResponseEntity<Message> - jezeli mamy zdafiniowana klase Message lub
-//                ResponseEntity<String> gdy nie mamy klasy, ktora zawierala by kontroketny konstruktor z informacjami do zwrotu.

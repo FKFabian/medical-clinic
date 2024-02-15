@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class DoctorValidatorTest {
-
     @ParameterizedTest
     @MethodSource("provideDoctorsWithNull")
     void checkIfAnyDoctorsValueIsNullTest(DoctorCreateDto doctorCreateDto, String expected) {

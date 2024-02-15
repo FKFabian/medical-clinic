@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class PatientValidatorTest {
-
     @Test
     void checkIfAnyValueIsNull_emailIsNull_ThrowsIllegalArgumentException() {
         // given
@@ -29,7 +28,6 @@ public class PatientValidatorTest {
         //when
         IllegalArgumentException result = assertThrows(IllegalArgumentException.class
                 , () -> checkIfAnyValueIsNull(patientCreateDto));
-
         // then
         assertEquals("Email cannot be null", result.getMessage());
     }
@@ -43,7 +41,6 @@ public class PatientValidatorTest {
         //when
         IllegalArgumentException result = assertThrows(IllegalArgumentException.class
                 , () -> checkIfAnyValueIsNull(patientCreateDto));
-
         // then
         assertEquals("Password cannot be null", result.getMessage());
     }
@@ -57,7 +54,6 @@ public class PatientValidatorTest {
         //when
         IllegalArgumentException result = assertThrows(IllegalArgumentException.class
                 , () -> checkIfAnyValueIsNull(patientCreateDto));
-
         // then
         assertEquals("IDCardNo cannot be null", result.getMessage());
     }
@@ -71,7 +67,6 @@ public class PatientValidatorTest {
         //when
         IllegalArgumentException result = assertThrows(IllegalArgumentException.class
                 , () -> checkIfAnyValueIsNull(patientCreateDto));
-
         // then
         assertEquals("First name cannot be null", result.getMessage());
     }
@@ -85,7 +80,6 @@ public class PatientValidatorTest {
         //when
         IllegalArgumentException result = assertThrows(IllegalArgumentException.class
                 , () -> checkIfAnyValueIsNull(patientCreateDto));
-
         // then
         assertEquals("Last name cannot be null", result.getMessage());
     }
@@ -99,7 +93,6 @@ public class PatientValidatorTest {
         //when
         IllegalArgumentException result = assertThrows(IllegalArgumentException.class
                 , () -> checkIfAnyValueIsNull(patientCreateDto));
-
         // then
         assertEquals("Phone number cannot be null", result.getMessage());
     }
@@ -113,7 +106,6 @@ public class PatientValidatorTest {
         //when
         IllegalArgumentException result = assertThrows(IllegalArgumentException.class
                 , () -> checkIfAnyValueIsNull(patientCreateDto));
-
         // then
         assertEquals("Birthday cannot be null", result.getMessage());
     }
@@ -133,11 +125,8 @@ public class PatientValidatorTest {
         IllegalArgumentException result = assertThrows(IllegalArgumentException.class
                 , () -> validatePatientDataToChange(patient, patientCreateDto));
         // then
-
         assertEquals("You cannot change ID card number", result.getMessage());
     }
-
-
 
     @Test
     void validatePatientDataToChange_CorrectData_VerifyIdCardNo() {
@@ -150,15 +139,11 @@ public class PatientValidatorTest {
                 , "pass1", "idCard1", "John"
                 , "Smith", "333-333-333"
                 , LocalDate.of(2000, 12, 5));
-
         // when
         validatePatientDataToChange(patient, patientCreateDto);
         // then
         assertEquals(patient.getIdCardNo(), patientCreateDto.getIdCardNo());
-
-
     }
-
 
     @ParameterizedTest
     @MethodSource("providePatientWithNullValue")
@@ -206,8 +191,6 @@ public class PatientValidatorTest {
                         "Birthday cannot be null"));
 
     }
-
-
 }
 
 

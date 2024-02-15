@@ -27,21 +27,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class PatientControllerTest {
-
     @MockBean
     PatientService patientService;
-
     @Autowired
     MockMvc mockMvc;
-
     @Autowired
     ObjectMapper objectMapper;
 
     @Test
     void getPatients_dataCorrect_PatientReturn() throws Exception {
-
         when(patientService.getPatients()).thenReturn(List.of(createPatientDto1(), createPatientDto2()));
-
         mockMvc.perform(get("/patients")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -50,9 +45,7 @@ public class PatientControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].firstName").value("111"));
-
     }
-
 
     @Test
     void getPatient_dataCorrect_PatientReturn() throws Exception {
@@ -69,7 +62,6 @@ public class PatientControllerTest {
 
     @Test
     void delete_correctData_deletePatient() throws Exception {
-
         mockMvc.perform(delete("/patients/email@gmail.com")
                         .contentType(MediaType.APPLICATION_JSON)
                 )

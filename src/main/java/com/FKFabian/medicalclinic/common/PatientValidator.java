@@ -1,15 +1,17 @@
 package com.FKFabian.medicalclinic.common;
 
-
+import com.FKFabian.medicalclinic.exceptions.ObjectAlreadyExistException;
+import com.FKFabian.medicalclinic.model.Doctor;
+import com.FKFabian.medicalclinic.model.DoctorCreateDto;
 import com.FKFabian.medicalclinic.model.Patient;
 import com.FKFabian.medicalclinic.model.PatientCreateDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class PatientValidator {
-
-
     public static void validatePatientDataToChange(Patient currentPatient, PatientCreateDto newDataPatient) {
         if (!(currentPatient.getIdCardNo().equals(newDataPatient.getIdCardNo()))) {
             throw new IllegalArgumentException(("You cannot change ID card number"));
@@ -41,4 +43,11 @@ public final class PatientValidator {
         }
     }
 
+    public static void checkIfAnyPatientAlreadyExist(PatientCreateDto patientCreateDto, List<Patient> patients) {
+        for (Patient patient : patients) {
+            if (patient.getEmail().equals(patientCreateDto.getEmail())) {
+                throw new ObjectAlreadyExistException("Patient with given email already exist");
+            }
+        }
+    }
 }

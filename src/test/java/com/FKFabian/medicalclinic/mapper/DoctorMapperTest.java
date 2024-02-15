@@ -23,8 +23,7 @@ public class DoctorMapperTest {
     void toDoctorDtoTest(Doctor doctor, DoctorDTO expectedDoctor) {
         DoctorDTO result = doctorMapper.toDoctorDto(doctor);
         assertEquals(expectedDoctor, result);
-    } // failed - Expected :DoctorDTO(email=null, name=null, surname=null, specialization=null, facilitiesId=null)
-//                Actual   :DoctorDTO(email=null, name=null, surname=null, specialization=null, facilitiesId=[])
+    }
 
     private static Stream<Arguments> dataToDoctorDtoTest() {
         return Stream.of(
@@ -38,7 +37,7 @@ public class DoctorMapperTest {
     void toDoctorTest(DoctorCreateDto doctorCreateDto, Doctor expectedDoctor) {
         Doctor result = doctorMapper.toDoctor(doctorCreateDto);
         assertEquals(expectedDoctor.getEmail(), result.getEmail());
-    } // failed
+    }
 
     private static Stream<Arguments> dataToDoctorTest() {
         return Stream.of(
@@ -72,6 +71,4 @@ public class DoctorMapperTest {
         return new DoctorDTO(null, null
                 , null, null, new ArrayList<>());
     }
-
-
 }

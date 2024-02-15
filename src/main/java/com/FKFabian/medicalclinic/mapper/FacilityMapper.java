@@ -27,4 +27,6 @@ public interface FacilityMapper {
                 .map(Doctor::getId)
                 .toList();
     }
+
+    List<FacilityDTO> toPatientDtoList(List<Facility> patients);
 }

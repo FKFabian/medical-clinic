@@ -22,7 +22,7 @@ public class FacilityMapperTest {
     void toFacilityDtoTest(Facility facility, FacilityDTO expectedFacility) {
         FacilityDTO result = facilityMapper.toFacilityDto(facility);
         assertEquals(expectedFacility, result);
-    } // failed
+    }
 
     private static Stream<Arguments> dataToFacilityDtoTest() {
         return Stream.of(
@@ -36,7 +36,7 @@ public class FacilityMapperTest {
     void toFacilityTest(FacilityCreateDto facilityCreateDto, Facility expectedFacility) {
         Facility result = facilityMapper.toFacility(facilityCreateDto);
         assertEquals(expectedFacility.getName(), result.getName());
-    } //failed
+    }
 
     private static Stream<Arguments> dataToFacilityTest() {
         return Stream.of(

@@ -22,8 +22,6 @@ public class PatientMapperTest {
     void toPatientDtoTest(Patient patient, PatientDTO expectedPatient) {
         PatientDTO result = patientMapper.toPatientDto(patient);
         assertEquals(expectedPatient, result);
-
-
     }
 
     private static Stream<Arguments> dataForPatientDtoTest() {
@@ -33,14 +31,13 @@ public class PatientMapperTest {
         );
     }
 
-
     @ParameterizedTest
     @MethodSource("dataForPatientTest")
     void toPatientTest(PatientCreateDto patientCreateDto, Patient expectedPatient) {
         Patient result = patientMapper.toPatient(patientCreateDto);
         assertEquals(expectedPatient.getFirstName(), result.getFirstName());
         assertEquals(expectedPatient.getPassword(), result.getPassword());
-        assertEquals(expectedPatient.getId(),result.getId());
+        assertEquals(expectedPatient.getId(), result.getId());
     }
 
     private static Stream<Arguments> dataForPatientTest() {
@@ -49,7 +46,6 @@ public class PatientMapperTest {
                 Arguments.of(createPatientCreateDtoNull(), new Patient())
         );
     }
-
 
     private static Patient createPatient() {
         return new Patient(null, "patient1@gmail.com"
@@ -83,7 +79,5 @@ public class PatientMapperTest {
                 , null, null, null);
 
     }
-
-
 }
 

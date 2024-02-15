@@ -13,10 +13,8 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface DoctorMapper {
-
     @Mapping(target = "facilitiesId", source = "facilities", qualifiedByName = "mapToFacility")
     DoctorDTO toDoctorDto(Doctor doctor);
-
 
     Doctor toDoctor(DoctorCreateDto doctorCreateDto);
 
@@ -29,4 +27,6 @@ public interface DoctorMapper {
                 .map(Facility::getId)
                 .toList();
     }
+
+    List<DoctorDTO> toPatientDtoList(List<Doctor> patients);
 }

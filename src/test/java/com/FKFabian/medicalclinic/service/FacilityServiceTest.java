@@ -47,7 +47,7 @@ public class FacilityServiceTest {
         //then
         assertNotNull(result);
         assertEquals(2, result.size());
-    } // ok
+    }
 
     @Test
     void getFacility_correctData_ReturnFacilityDto() {
@@ -58,11 +58,9 @@ public class FacilityServiceTest {
         when(facilityRepository.findById(facilityId)).thenReturn(Optional.of(facility));
         //when
         var result = facilityService.getFacility(facilityId);
-
         //then
         assertNotNull(result);
         assertEquals("111", result.getName());
-        // failed - nullpointerexception wyrzuca
     }
 
     @Test
@@ -74,7 +72,7 @@ public class FacilityServiceTest {
                 , () -> facilityService.getFacility(id));
         //then
         assertEquals("Facility with given email " + id + " not found.", result.getMessage());
-    } // failed - FacilityNotFoundException to be thrown, but nothing was thrown.
+    }
 
     @Test
     void addFacility_cityIsNull_ThrowsIllegalArgumentException() {
@@ -86,7 +84,7 @@ public class FacilityServiceTest {
                 , () -> facilityService.addFacility(facilityCreateDto));
         //then
         assertEquals("City cannot be null", result.getMessage());
-    } // failed - wyrzuca nullpointerexception
+    }
 
     @Test
     void addFacility_correctData_ReturnFacilityDto() {
@@ -101,6 +99,5 @@ public class FacilityServiceTest {
         //then
         assertNotNull(result);
         assertEquals("222", result.getName());
-    }// test failed - wyrzuca wyjatek: nullpointerexception
-
+    }
 }

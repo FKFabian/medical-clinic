@@ -38,7 +38,6 @@ public class PatientController {
     }
 
     @PutMapping("/{email}")
-    // todo : ResponseStatus -> No CONTENT jesli to ma byc void ale moim zdaniem mozemy tutaj zwrocic pacjenta
     public PatientDTO updatePatient(@PathVariable("email") String email, @RequestBody PatientCreateDto patientCreateDto) {
         return patientService.updatePatient(email, patientCreateDto);
     }
@@ -47,5 +46,4 @@ public class PatientController {
     public PatientDTO updatePassword(@PathVariable("email") String email, @NotBlank(message = "Invalid password: Empty password") @RequestBody String newPassword) {
         return patientService.updatePassword(email, newPassword);
     }
-
 }

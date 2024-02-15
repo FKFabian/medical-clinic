@@ -23,16 +23,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class PatientServiceTest {
-
     PatientService patientService;
     PatientRepository patientRepository;
     PatientMapper patientMapper;
 
     @BeforeEach
-        // wykonaj mi ta metoda ktora jest oznaczona ta adnotacja przed kazdym testem
     void init() {
-        this.patientRepository = Mockito.mock(PatientRepository.class); // tworzymy mocka PatientRepository i przypisujemy do pola patientRepository
-        this.patientMapper = Mappers.getMapper(PatientMapper.class); // tworzymy mappera PRAWDZIWEGO i przypisujemy go do pola patientMapper
+        this.patientRepository = Mockito.mock(PatientRepository.class);
+        this.patientMapper = Mappers.getMapper(PatientMapper.class);
         this.patientService = new PatientService(patientRepository, patientMapper);
     }
 
@@ -43,12 +41,10 @@ public class PatientServiceTest {
                 , "pass1", "idCard1", "John"
                 , "Smith", "444-444-444"
                 , LocalDate.of(2000, 12, 5));
-
         Patient patient2 = new Patient(1L, "patient1@gmail.com"
                 , "pass1", "idCard1", "John"
                 , "Smith", "444-444-444"
                 , LocalDate.of(1999, 10, 3));
-
         List<Patient> patients = Arrays.asList(patient1, patient2);
         when(patientRepository.findAll()).thenReturn(patients);
         // when
@@ -66,7 +62,6 @@ public class PatientServiceTest {
         // when
         PatientNotFoundException result = assertThrows(PatientNotFoundException.class
                 , () -> patientService.getPatient(email));
-
         // then
         assertEquals("Patient with given email " + email + " not found.", result.getMessage());
     }
@@ -98,7 +93,6 @@ public class PatientServiceTest {
         //when
         IllegalArgumentException result = assertThrows(IllegalArgumentException.class
                 , () -> patientService.addPatient(patientCreateDto));
-
         // then
         assertEquals("Email cannot be null", result.getMessage());
     }
@@ -110,21 +104,16 @@ public class PatientServiceTest {
                 , "pass1", "idCard1", "John"
                 , "Smith", "333-333-333"
                 , LocalDate.of(2000, 2, 2));
-
         Patient patient = new Patient(1L, "patient1@gmail.com"
                 , "pass1", "idCard1", "John"
                 , "Smith", "444-444-444"
                 , LocalDate.of(2000, 12, 5));
-
-        // co robi any? Any mowi nam ze nie jest wazne jaki argument przyjdzie,
-        // ma zostac zwrocony ten patient
         when(patientRepository.save(any())).thenReturn(patient);
         // when
         var result = patientService.addPatient(patientCreateDto);
         //then
         assertNotNull(result);
         assertEquals("patient@email.com", result.getEmail());
-
     }
 
     @Test
@@ -135,12 +124,9 @@ public class PatientServiceTest {
                 , "pass1", "idCard1", "John"
                 , "Smith", "444-444-444"
                 , LocalDate.of(2000, 12, 5));
-
         when(patientRepository.findByEmail(email)).thenReturn(Optional.of(patient));
-
         //when
         patientService.delete(email);
-
         // then
         verify(patientRepository).delete(patient);
     }
@@ -153,9 +139,7 @@ public class PatientServiceTest {
         PatientNotFoundException result = assertThrows(PatientNotFoundException.class
                 , () -> patientService.delete(email));
         //then
-
         assertEquals("Patient with given email " + email + " not found.", result.getMessage());
-
     }
 
     @Test
@@ -219,13 +203,10 @@ public class PatientServiceTest {
                 , LocalDate.of(2000, 12, 5));
         when(patientRepository.findByEmail(email)).thenReturn(Optional.of(patient));
         when(patientRepository.save(patient)).thenReturn(patient);
-
         // when
         PatientDTO result = patientService.updatePassword(email, newPassword);
-
         //then
         assertEquals("newpassword", patient.getPassword());
-
     }
 }
 

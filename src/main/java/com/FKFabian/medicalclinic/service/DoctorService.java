@@ -21,25 +21,23 @@ public class DoctorService {
     private final DoctorMapper doctorMapper;
     private final FacilityRepository facilityRepository;
 
-
     public List<DoctorDTO> getDoctors() {
         List<Doctor> doctors = doctorRepository.findAll();
-        return doctors.stream()
-                .map(doctorMapper::toDoctorDto)
-                .toList();
+        return doctorMapper.toPatientDtoList(doctors);
     }
 
     public DoctorDTO getDoctor(String email) {
         Doctor doctor = doctorRepository.findByEmail(email)
-                .orElseThrow(() -> new DoctorNotFoundException("Doctor with given email " + email + " not found."));
+                .orElseThrow(()-> new DoctorNotFoundException("Doctor with given email " + email + " not found."));
         return doctorMapper.toDoctorDto(doctor);
     }
 
     public DoctorDTO addDoctor(DoctorCreateDto doctorCreateDto) {
+        DoctorValidator.checkIfAnyDoctorAlreadyExist(doctorCreateDto, doctorRepository.findAll());
         DoctorValidator.checkIfAnyDoctorsValueIsNull(doctorCreateDto);
         Doctor doctor = doctorMapper.toDoctor(doctorCreateDto);
-        doctorRepository.save(doctor);
-        return doctorMapper.toDoctorDto(doctor);
+        Doctor savedDoctor = doctorRepository.save(doctor);
+        return doctorMapper.toDoctorDto(savedDoctor);
     }
 
     public DoctorDTO assignToFacility(String email, Long facilityId) {
@@ -47,8 +45,6 @@ public class DoctorService {
                 .orElseThrow(() -> new DoctorNotFoundException("Doctor with given email " + email + " not found."));
         Facility facility = facilityRepository.findById(facilityId)
                 .orElseThrow(() -> new FacilityNotFoundException("Facility with id " + facilityId + " not found."));
-        // zastanow sie co sie satnie w sytuacji kiedy on juz jest dodany -> nie poinformujesz uzytkownika o tym ze taki juz jest tylko go po prostu nie dodasz i powiesz
-        // uzytkownikowi ze dodanie sie udalo
         if (!facility.getDoctors().contains(doctor)) {
             doctor.getFacilities().add(facility);
             doctorRepository.save(doctor);

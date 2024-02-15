@@ -2,6 +2,7 @@ package com.FKFabian.medicalclinic.controller;
 
 import com.FKFabian.medicalclinic.model.FacilityCreateDto;
 import com.FKFabian.medicalclinic.model.FacilityDTO;
+import com.FKFabian.medicalclinic.service.FacilityService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class FacilityControllerTest {
     @MockBean
-    FacilityController facilityController;
+    FacilityService facilityService;
     @Autowired
     MockMvc mockMvc;
     @Autowired
@@ -32,8 +33,7 @@ public class FacilityControllerTest {
 
     @Test
     void getFacilities_dataCorrect_ReturnFacility() throws Exception {
-        when(facilityController.getFacilities()).thenReturn(List.of(createFacility1(), createFacility2()));
-
+        when(facilityService.getFacilities()).thenReturn(List.of(createFacility1(), createFacility2()));
         mockMvc.perform(get("/facilities")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -42,14 +42,12 @@ public class FacilityControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].city").value("111"))
                 .andExpect(jsonPath("$[1].city").value("222"));
-//                .andExpect(jsonPath("$[0].doctorsId[0].name").value(null));
     }
 
     @Test
     void getFacility_dataCorrect_ReturnFacility() throws Exception {
         Long id = 1L;
-        when(facilityController.getFacility(id)).thenReturn(createFacility1());
-
+        when(facilityService.getFacility(id)).thenReturn(createFacility1());
         mockMvc.perform(get("/facilities/1")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -61,8 +59,7 @@ public class FacilityControllerTest {
 
     @Test
     void addFacility_correctData_ReturnFacility() throws Exception {
-        when(facilityController.addFacility(createFacilityCreateDto())).thenReturn(createFacility1()); // to co return to sprawdzam w assercji
-
+        when(facilityService.addFacility(createFacilityCreateDto())).thenReturn(createFacility1());
         mockMvc.perform(post("/facilities")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createFacilityCreateDto()))
@@ -86,5 +83,4 @@ public class FacilityControllerTest {
     private static FacilityCreateDto createFacilityCreateDto() {
         return new FacilityCreateDto("333", "333", "333", "333", "333");
     }
-
 }

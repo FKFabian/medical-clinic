@@ -22,9 +22,7 @@ public class FacilityService {
 
     public List<FacilityDTO> getFacilities() {
         List<Facility> facilities = facilityRepository.findAll();
-        return facilities.stream()
-                .map(facilityMapper::toFacilityDto)
-                .toList();
+        return facilityMapper.toPatientDtoList(facilities);
     }
 
     public FacilityDTO getFacility(Long id) {
@@ -34,12 +32,12 @@ public class FacilityService {
     }
 
     public FacilityDTO addFacility(FacilityCreateDto facilityCreateDto) {
+        FacilityValidator.checkIfAnyFacilityAlreadyExist(facilityCreateDto, facilityRepository.findAll());
         FacilityValidator.checkIfAnyFacilitiesValueIsNull(facilityCreateDto);
         Facility facility = facilityMapper.toFacility(facilityCreateDto);
-        facilityRepository.save(facility);
-        return facilityMapper.toFacilityDto(facility);
+        Facility savedFacility = facilityRepository.save(facility);
+        return facilityMapper.toFacilityDto(savedFacility);
     }
-
 }
 
 

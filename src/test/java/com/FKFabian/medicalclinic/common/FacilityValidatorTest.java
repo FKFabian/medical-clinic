@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class FacilityValidatorTest {
-
     @ParameterizedTest
     @MethodSource("providedFacilitiesWithNull")
     void checkIfAnyFacilitiesValueIsNullTest(FacilityCreateDto facilityCreateDto, String expected) {

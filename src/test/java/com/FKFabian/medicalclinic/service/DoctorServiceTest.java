@@ -47,7 +47,6 @@ public class DoctorServiceTest {
         when(doctorRepository.findAll()).thenReturn(list);
         //when
         var result = doctorService.getDoctors();
-        // var result = doctorRepository.findAll();  czemu to a nie to wyżej?
         //then
         assertNotNull(result);
         assertEquals(2, result.size());
@@ -80,9 +79,6 @@ public class DoctorServiceTest {
         assertEquals("111", result.getName());
         assertEquals("111", result.getEmail());
         assertEquals(0, result.getFacilitiesId().size());
-//        assertEquals(null, result.getFacilitiesId().get(0));
-
-        //czy tytaj dobra asercja do listy facilitiesid??
     }
 
     @Test
@@ -92,14 +88,13 @@ public class DoctorServiceTest {
                 , "111", "111", List.of());
         DoctorCreateDto doctorCreateDto = new DoctorCreateDto("111", "111"
                 , "111", "111", "111");
-
-        when(doctorRepository.save(doctor)).thenReturn(doctor);  //jezeli to zakomentuje to test tez przechodzi
+        when(doctorRepository.save(doctor)).thenReturn(doctor);
         //when
         var result = doctorService.addDoctor(doctorCreateDto);
         //then
         assertNotNull(result);
         assertEquals("111", result.getEmail());
-    } //ok
+    }
 
     @Test
     void addDoctor_nameIsNull_ThrowsIllegalArgumentException() {
@@ -109,7 +104,7 @@ public class DoctorServiceTest {
         Exception result = assertThrows(IllegalArgumentException.class, () -> doctorService.addDoctor(doctorCreateDto));
         //then
         assertEquals("First name cannot be null", result.getMessage());
-    } //o
+    }
 
     @Test
     void assignToFacility_invalidData_ThrowsDoctorNotFoundException() {
@@ -120,7 +115,7 @@ public class DoctorServiceTest {
         Exception result = assertThrows(DoctorNotFoundException.class, () -> doctorService.assignToFacility(email, facilityId));
         //then
         assertEquals("Doctor with given email " + email + " not found.", result.getMessage());
-    } // ok
+    }
 
     @Test
     void assignToFacility_invalidData_ThrowsFacilityNotFoundException() {
@@ -131,8 +126,7 @@ public class DoctorServiceTest {
         Exception result = assertThrows(FacilityNotFoundException.class, () -> doctorService.assignToFacility(email, facilityId));
         //then
         assertEquals("Facility with id " + facilityId + " not found.", result.getMessage());
-    } // failed Expected :class com.FKFabian.medicalclinic.exceptions.FacilityNotFoundException
-      //        Actual   :class com.FKFabian.medicalclinic.exceptions.DoctorNotFoundException
+    }
 
     @Test
     void assignToFacility_invalidData_ThrowsIllegalArgumentException() {
@@ -143,8 +137,6 @@ public class DoctorServiceTest {
         Exception result = assertThrows(IllegalArgumentException.class, () -> doctorService.assignToFacility(email, facilityId));
         //then
         assertEquals("Doctor is already assigned to this facility.", result.getMessage());
-// failed - Expected :class java.lang.IllegalArgumentException
-        //Actual   :class com.FKFabian.medicalclinic.exceptions.DoctorNotFoundException
     }
 
     @Test
@@ -166,5 +158,5 @@ public class DoctorServiceTest {
         assertEquals("email@com", result.getEmail());
         assertEquals(11, result.getFacilitiesId().get(0));
         assertEquals(1, result.getFacilitiesId().size());
-    }  // failed
+    }
 }

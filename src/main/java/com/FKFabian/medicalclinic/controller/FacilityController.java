@@ -19,7 +19,6 @@ public class FacilityController {
         return facilityService.getFacilities();
     }
 
-
     @GetMapping("/{id}")
     public FacilityDTO getFacility(@PathVariable("id") Long id) {
         return facilityService.getFacility(id);
@@ -29,5 +28,4 @@ public class FacilityController {
     public FacilityDTO addFacility(@RequestBody FacilityCreateDto facilityCreateDto) {
         return facilityService.addFacility(facilityCreateDto);
     }
-
 }

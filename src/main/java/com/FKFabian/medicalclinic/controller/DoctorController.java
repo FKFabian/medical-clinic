@@ -22,7 +22,6 @@ public class DoctorController {
         return doctorService.getDoctors();
     }
 
-
     @GetMapping("/{email}")
     public DoctorDTO getDoctor(@PathVariable("email") String email) {
         return doctorService.getDoctor(email);
@@ -37,5 +36,4 @@ public class DoctorController {
     public DoctorDTO assignToFacility(@PathVariable("email") @NotBlank(message = "Invalid email: Empty email") String email, @PathVariable Long facilityId) {
         return doctorService.assignToFacility(email, facilityId);
     }
-
 }

@@ -3,6 +3,7 @@ package com.FKFabian.medicalclinic.model;
 import lombok.*;
 
 import java.time.LocalDate;
+
 @RequiredArgsConstructor
 @Getter
 @Setter
