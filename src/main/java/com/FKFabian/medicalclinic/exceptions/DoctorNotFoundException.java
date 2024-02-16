@@ -10,4 +10,5 @@ public class DoctorNotFoundException extends MedicalExceptions{
     public DoctorNotFoundException(String message, HttpStatus httpStatus) {
         super(message, httpStatus);
     }
+
 }
