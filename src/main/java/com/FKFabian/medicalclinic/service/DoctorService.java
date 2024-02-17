@@ -10,6 +10,7 @@ import com.FKFabian.medicalclinic.repository.DoctorRepository;
 import com.FKFabian.medicalclinic.repository.FacilityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +33,7 @@ public class DoctorService {
         return doctorMapper.toDoctorDto(doctor);
     }
 
+    @Transactional
     public DoctorDTO addDoctor(DoctorCreateDto doctorCreateDto) {
         DoctorValidator.checkIfAnyDoctorAlreadyExist(doctorCreateDto, doctorRepository.findAll());
         DoctorValidator.checkIfAnyDoctorsValueIsNull(doctorCreateDto);
@@ -40,6 +42,7 @@ public class DoctorService {
         return doctorMapper.toDoctorDto(savedDoctor);
     }
 
+    @Transactional
     public DoctorDTO assignToFacility(String email, Long facilityId) {
         Doctor doctor = doctorRepository.findByEmail(email)
                 .orElseThrow(() -> new DoctorNotFoundException("Doctor with given email " + email + " not found."));
