@@ -9,6 +9,7 @@ import com.FKFabian.medicalclinic.model.PatientDTO;
 import com.FKFabian.medicalclinic.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class PatientService {
         return patientMapper.toPatientDto(patient);
     }
 
+    @Transactional
     public PatientDTO addPatient(PatientCreateDto patientCreateDto) {
         PatientValidator.checkIfAnyPatientAlreadyExist(patientCreateDto, patientRepository.findAll());
         PatientValidator.checkIfAnyValueIsNull(patientCreateDto);
@@ -43,6 +45,7 @@ public class PatientService {
         return patientMapper.toPatientDto(patient);
     }
 
+    @Transactional
     public PatientDTO updatePatient(String email, PatientCreateDto patientCreateDto) {
         Patient patient = patientRepository.findByEmail(email)
                 .orElseThrow(() -> new PatientNotFoundException("Patient with given email " + email + " not found."));
@@ -52,6 +55,7 @@ public class PatientService {
         return patientMapper.toPatientDto(updatePatient);
     }
 
+    @Transactional
     public PatientDTO updatePassword(String email, String newPassword) {
         Patient patient = patientRepository.findByEmail(email)
                 .orElseThrow(() -> new PatientNotFoundException("Patient with given email " + email + " not found."));

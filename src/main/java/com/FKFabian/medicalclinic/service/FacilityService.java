@@ -10,6 +10,7 @@ import com.FKFabian.medicalclinic.model.*;
 import com.FKFabian.medicalclinic.repository.FacilityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class FacilityService {
         return facilityMapper.toFacilityDto(facility);
     }
 
+    @Transactional
     public FacilityDTO addFacility(FacilityCreateDto facilityCreateDto) {
         FacilityValidator.checkIfAnyFacilityAlreadyExist(facilityCreateDto, facilityRepository.findAll());
         FacilityValidator.checkIfAnyFacilitiesValueIsNull(facilityCreateDto);
