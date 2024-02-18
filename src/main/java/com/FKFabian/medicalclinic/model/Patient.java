@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @Getter
@@ -29,6 +30,7 @@ public class Patient {
     private String phoneNumber;
     @Column(nullable = false)
     private LocalDate birthday;
+    private List<Visit> visits;
 
     public void update(PatientCreateDto patientCreateDto) {
         this.email = patientCreateDto.getEmail();

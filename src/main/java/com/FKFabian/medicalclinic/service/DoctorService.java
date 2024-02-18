@@ -23,7 +23,7 @@ public class DoctorService {
 
     public List<DoctorDTO> getDoctors() {
         List<Doctor> doctors = doctorRepository.findAll();
-        return doctorMapper.toPatientDtoList(doctors);
+        return doctorMapper.toDoctorDtoList(doctors);
     }
 
     public DoctorDTO getDoctor(String email) {

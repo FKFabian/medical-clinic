@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-public class MedicalException extends RuntimeException {
+public class MedicalException extends RuntimeException{
     private HttpStatus httpStatus;
 
     public MedicalException(String message, HttpStatus httpStatus) {
