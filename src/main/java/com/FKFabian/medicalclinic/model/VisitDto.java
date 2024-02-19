@@ -14,6 +14,6 @@ import java.time.LocalDateTime;
 public class VisitDto {
     private final LocalDateTime startingVisitDate;
     private final LocalDateTime endingVisitDate;
-    private final Patient patient;
-    private final Doctor doctor;
+    private final Long patientId;
+    private final Long doctorId;
 }
