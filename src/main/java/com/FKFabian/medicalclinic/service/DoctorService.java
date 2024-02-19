@@ -5,7 +5,10 @@ import com.FKFabian.medicalclinic.exceptions.DoctorNotFoundException;
 import com.FKFabian.medicalclinic.exceptions.FacilityNotFoundException;
 import com.FKFabian.medicalclinic.exceptions.PatientNotFoundException;
 import com.FKFabian.medicalclinic.mapper.DoctorMapper;
-import com.FKFabian.medicalclinic.model.*;
+import com.FKFabian.medicalclinic.model.Doctor;
+import com.FKFabian.medicalclinic.model.DoctorCreateDto;
+import com.FKFabian.medicalclinic.model.DoctorDTO;
+import com.FKFabian.medicalclinic.model.Facility;
 import com.FKFabian.medicalclinic.repository.DoctorRepository;
 import com.FKFabian.medicalclinic.repository.FacilityRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +31,7 @@ public class DoctorService {
 
     public DoctorDTO getDoctor(String email) {
         Doctor doctor = doctorRepository.findByEmail(email)
-                .orElseThrow(()-> new DoctorNotFoundException("Doctor with given email " + email + " not found."));
+                .orElseThrow(() -> new DoctorNotFoundException("Doctor with given email " + email + " not found."));
         return doctorMapper.toDoctorDto(doctor);
     }
 

@@ -19,9 +19,8 @@ public class VisitController {
         return visitService.getVisits();
     }
 
-    @PostMapping
-    public void addVisit(@RequestBody VisitCreateDto visitCreateDto) {
-        visitService.addVisit(visitCreateDto);
+    @PostMapping("/{email}")
+    public VisitDto addVisit(@RequestBody VisitCreateDto visitCreateDto, @PathVariable("email") String email) {
+        return visitService.addVisit(visitCreateDto, email);
     }
-
 }

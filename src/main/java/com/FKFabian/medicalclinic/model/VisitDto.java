@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 @ToString
 @EqualsAndHashCode
 public class VisitDto {
-    private final LocalDateTime visitDate;
+    private final LocalDateTime startingVisitDate;
+    private final LocalDateTime endingVisitDate;
     private final Patient patient;
     private final Doctor doctor;
 }

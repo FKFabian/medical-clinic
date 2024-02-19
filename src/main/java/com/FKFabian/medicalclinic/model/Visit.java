@@ -4,14 +4,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Service;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Service
+@Setter
 @Entity
 @Table(name = "VISITS")
 public class Visit {
@@ -19,11 +19,14 @@ public class Visit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private LocalDateTime visitDate;
+    private LocalDateTime startingVisitTime;
+    @Column(nullable = false)
+    private LocalDateTime endingVisitTime;
     @ManyToOne
-    @Column(nullable = false)
+    @Column(name = "patient_id", nullable = false)
     private Patient patient;
-    @Column(nullable = false)
+    @ManyToOne
+    @Column(name = "doctor_id", nullable = false)
     private Doctor doctor;
 
     @Override
@@ -47,8 +50,10 @@ public class Visit {
     public String toString() {
         return "Visit{" +
                 "id=" + id +
-                ", visitDate='" + visitDate + '\'' +
-                ", patient='" + patient + '\'' +
+                ", startingVisitTime=" + startingVisitTime +
+                ", endingVisitTime=" + endingVisitTime +
+                ", patient=" + patient +
+                ", doctor=" + doctor +
                 '}';
     }
 }

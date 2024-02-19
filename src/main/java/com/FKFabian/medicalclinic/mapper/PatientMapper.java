@@ -1,6 +1,8 @@
 package com.FKFabian.medicalclinic.mapper;
 
-import com.FKFabian.medicalclinic.model.*;
+import com.FKFabian.medicalclinic.model.Patient;
+import com.FKFabian.medicalclinic.model.PatientCreateDto;
+import com.FKFabian.medicalclinic.model.PatientDTO;
 import org.mapstruct.Mapper;
 
 import java.util.List;
