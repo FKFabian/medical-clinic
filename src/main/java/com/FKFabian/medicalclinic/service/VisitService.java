@@ -12,6 +12,7 @@ import com.FKFabian.medicalclinic.repository.VisitRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -31,11 +32,18 @@ public class VisitService {
         VisitValidator.checkIfVisitIsAvailable(visitCreateDto, visitRepository.findAll());
         Doctor doctor = doctorRepository.findByEmail(email)
                 .orElseThrow(() -> new DoctorNotFoundException("Doctor with given email " + email + " not found"));
-        VisitValidator.checkIfDoctorHasAnyVisit(
+        checkIfDoctorHasAnyVisit(
                 visitCreateDto.getStartingVisitDate(), visitCreateDto.getEndingVisitDate(), doctor.getId());
         Visit visit = visitMapper.toVisit(visitCreateDto);
         visit.setDoctor(doctor);
         visitRepository.save(visit);
         return visitMapper.toVisitDto(visit);
+    }
+
+    private void checkIfDoctorHasAnyVisit(LocalDateTime startingVisitDate, LocalDateTime endingVisitDate, Long doctorId) {
+        List<Visit> existingVisits = visitRepository.findAllDoctorVisits(startingVisitDate, endingVisitDate, doctorId);
+        if (!existingVisits.isEmpty()) {
+            throw new IllegalArgumentException("The doctor's visits is already occupied at the specified time.");
+        }
     }
 }

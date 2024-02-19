@@ -41,13 +41,6 @@ public class VisitValidator {
         }
     }
 
-    public static void checkIfDoctorHasAnyVisit(LocalDateTime startingVisitDate, LocalDateTime endingVisitDate, Long doctorId) {
-        List<Visit> existingVisits = visitRepository.findAllDoctorVisits(startingVisitDate, endingVisitDate, doctorId);
-        if (!existingVisits.isEmpty()) {
-            throw new IllegalArgumentException("The doctor's visits is already occupied at the specified time.");
-        }
-    }
-
     public static void checkIfAnyVisitsValueIsNull(VisitCreateDto visitCreateDto) {
         if (visitCreateDto.getStartingVisitDate() == null) {
             throw new IllegalArgumentException("Start of date cannot be null");
