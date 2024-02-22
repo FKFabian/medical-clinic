@@ -3,7 +3,6 @@ package com.FKFabian.medicalclinic.service;
 import com.FKFabian.medicalclinic.common.DoctorValidator;
 import com.FKFabian.medicalclinic.exceptions.DoctorNotFoundException;
 import com.FKFabian.medicalclinic.exceptions.FacilityNotFoundException;
-import com.FKFabian.medicalclinic.exceptions.PatientNotFoundException;
 import com.FKFabian.medicalclinic.mapper.DoctorMapper;
 import com.FKFabian.medicalclinic.model.Doctor;
 import com.FKFabian.medicalclinic.model.DoctorCreateDto;
@@ -15,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
