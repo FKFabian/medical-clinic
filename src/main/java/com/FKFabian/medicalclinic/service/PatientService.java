@@ -11,6 +11,7 @@ import com.FKFabian.medicalclinic.repository.PatientRepository;
 import com.FKFabian.medicalclinic.repository.VisitRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -39,13 +40,7 @@ public class PatientService {
         return patientMapper.toPatientDto(patient);
     }
 
-    public List<VisitDto> getVisits(String email) {
-        Patient patient = patientRepository.findByEmail(email)
-                .orElseThrow(() -> new PatientNotFoundException("Patient with given email " + email + " not found."));
-        List<Visit> visits = patient.getVisits();
-        return visitMapper.toVisitsDto(visits);
-    }
-
+    @Transactional
     public PatientDTO addPatient(PatientCreateDto patientCreateDto) {
         PatientValidator.checkIfAnyPatientAlreadyExist(patientCreateDto, patientRepository.findAll());
         PatientValidator.checkIfAnyValueIsNull(patientCreateDto);
@@ -54,6 +49,7 @@ public class PatientService {
         return patientMapper.toPatientDto(patient);
     }
 
+    @Transactional
     public PatientDTO updatePatient(String email, PatientCreateDto patientCreateDto) {
         Patient patient = patientRepository.findByEmail(email)
                 .orElseThrow(() -> new PatientNotFoundException("Patient with given email " + email + " not found."));
@@ -63,6 +59,7 @@ public class PatientService {
         return patientMapper.toPatientDto(updatePatient);
     }
 
+    @Transactional
     public PatientDTO updatePassword(String email, String newPassword) {
         Patient patient = patientRepository.findByEmail(email)
                 .orElseThrow(() -> new PatientNotFoundException("Patient with given email " + email + " not found."));
@@ -70,31 +67,5 @@ public class PatientService {
         Patient updatedPatient = patientRepository.save(patient);
         return patientMapper.toPatientDto(updatedPatient);
     }
-
-    public PatientDTO assignToVisit(String email, Long visitId) {
-        Patient patient = patientRepository.findByEmail(email)
-                .orElseThrow(() -> new PatientNotFoundException("Patient with given email " + email + " not found."));
-        Visit visit = visitRepository.findById(visitId)
-                .orElseThrow(() -> new VisitNotFoundException("Visit with given email " + email + " not found."));
-        checkVisitAvailability(visit);
-        checkIfPatientIsAlreadyAssign(patient, visit);
-        visitRepository.save(visit);
-        return patientMapper.toPatientDto(patient);
-    }
-
-    private void checkVisitAvailability(Visit visit) {
-        VisitCreateDto visitCreateDto = visitMapper.toVisitCreateDto(visit);
-        VisitValidator.checkIfVisitIsAvailable(visitCreateDto, visitRepository.findAll());
-    }
-
-    private void checkIfPatientIsAlreadyAssign(Patient patient, Visit visit) {
-        if (!visit.getPatient().equals(patient)) {
-            visit.setPatient(patient);
-            patient.getVisits().add(visit);
-        } else {
-            throw new IllegalArgumentException("Patient is already assigned to this visit.");
-        }
-    }
-
 }
 
