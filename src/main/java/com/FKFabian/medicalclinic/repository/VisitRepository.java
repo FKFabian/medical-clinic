@@ -12,7 +12,7 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
     @Query("SELECT v FROM Visit v WHERE v.doctor.id = :doctorId " +
             "AND v.startingVisitDate >= :startingVisitDate " +
             "AND v.endingVisitDate <= :endingVisitDate")
-    List<Visit> findAllDoctorVisits(
+    List<Visit> findAllDoctorsVisitsWithGivenTimeRange(
             @Param("startingVisitDate") LocalDateTime startingVisitDate,
             @Param("endingVisitDate") LocalDateTime endingVisitDate,
             @Param("doctorId") Long doctorId

@@ -26,7 +26,7 @@ public class DoctorService {
 
     public List<DoctorDTO> getDoctors() {
         List<Doctor> doctors = doctorRepository.findAll();
-        return doctorMapper.toDoctorDtoList(doctors);
+        return doctorMapper.toDoctorsDto(doctors);
     }
 
     public DoctorDTO getDoctor(String email) {
@@ -48,12 +48,16 @@ public class DoctorService {
                 .orElseThrow(() -> new DoctorNotFoundException("Doctor with given email " + email + " not found."));
         Facility facility = facilityRepository.findById(facilityId)
                 .orElseThrow(() -> new FacilityNotFoundException("Facility with id " + facilityId + " not found."));
+        checkIfDoctorIsAlreadyAssign(doctor, facility);
+        return doctorMapper.toDoctorDto(doctor);
+    }
+
+    private void checkIfDoctorIsAlreadyAssign(Doctor doctor, Facility facility) {
         if (!facility.getDoctors().contains(doctor)) {
             doctor.getFacilities().add(facility);
             doctorRepository.save(doctor);
         } else {
             throw new IllegalArgumentException("Doctor is already assigned to this facility.");
         }
-        return doctorMapper.toDoctorDto(doctor);
     }
 }

@@ -13,5 +13,5 @@ public interface PatientMapper {
 
     Patient toPatient(PatientCreateDto patientCreateDto);
 
-    List<PatientDTO> toPatientDtoList(List<Patient> patients);
+    List<PatientDTO> toPatientsDto(List<Patient> patients);
 }

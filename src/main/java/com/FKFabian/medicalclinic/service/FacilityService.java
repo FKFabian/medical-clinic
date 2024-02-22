@@ -22,7 +22,7 @@ public class FacilityService {
 
     public List<FacilityDTO> getFacilities() {
         List<Facility> facilities = facilityRepository.findAll();
-        return facilityMapper.toPatientDtoList(facilities);
+        return facilityMapper.toPatientsDto(facilities);
     }
 
     public FacilityDTO getFacility(Long id) {

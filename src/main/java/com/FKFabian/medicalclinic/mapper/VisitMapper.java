@@ -1,37 +1,22 @@
 package com.FKFabian.medicalclinic.mapper;
 
-import com.FKFabian.medicalclinic.model.*;
+import com.FKFabian.medicalclinic.model.Visit;
+import com.FKFabian.medicalclinic.model.VisitCreateDto;
+import com.FKFabian.medicalclinic.model.VisitDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface VisitMapper {
-    @Mapping(target = "doctorId", source = "doctor", qualifiedByName = "mapDoctor")
-    @Mapping(target = "patientId", source = "patient", qualifiedByName = "mapPatient")
+    @Mapping(target = "doctorId", source = "doctor.id")
+    @Mapping(target = "patientId", source = "patient.id")
     VisitDto toVisitDto(Visit visit);
 
     Visit toVisit(VisitCreateDto visitCreateDto);
 
     VisitCreateDto toVisitCreateDto(Visit visit);
 
-    List<VisitDto> toVisitDtoList(List<Visit> visits);
-
-    @Named("mapDoctor")
-    default Long mapDoctorId(Doctor doctor) {
-        if (doctor == null) {
-            return null;
-        }
-        return doctor.getId();
-    }
-
-    @Named("mapPatient")
-    default Long mapPatientId(Patient patient) {
-        if (patient == null) {
-            return null;
-        }
-        return patient.getId();
-    }
+    List<VisitDto> toVisitsDto(List<Visit> visits);
 }

@@ -23,7 +23,7 @@ public class Visit {
     @Column(nullable = false)
     private LocalDateTime endingVisitTime;
     @ManyToOne
-    @Column(name = "patient_id", nullable = false)
+    @Column(name = "patient_id")
     private Patient patient;
     @ManyToOne
     @Column(name = "doctor_id", nullable = false)

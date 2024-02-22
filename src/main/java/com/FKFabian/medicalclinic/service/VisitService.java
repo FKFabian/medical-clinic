@@ -24,7 +24,7 @@ public class VisitService {
 
     public List<VisitDto> getVisits() {
         List<Visit> visits = visitRepository.findAll();
-        return visitMapper.toVisitDtoList(visits);
+        return visitMapper.toVisitsDto(visits);
     }
 
     public VisitDto addVisit(VisitCreateDto visitCreateDto, String email) {

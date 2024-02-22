@@ -1,6 +1,5 @@
 package com.FKFabian.medicalclinic.common;
 
-import com.FKFabian.medicalclinic.exceptions.ObjectAlreadyExistException;
 import com.FKFabian.medicalclinic.model.Visit;
 import com.FKFabian.medicalclinic.model.VisitCreateDto;
 import com.FKFabian.medicalclinic.repository.VisitRepository;
@@ -15,29 +14,20 @@ public class VisitValidator {
     private static VisitRepository visitRepository;
 
     public static void checkIfVisitIsAvailable(VisitCreateDto visitCreateDto, List<Visit> visits) {
-        checkDate(visitCreateDto);
-        checkTime(visitCreateDto);
-        checkIfAnyVisitAlreadyExist(visitCreateDto, visits);
+        checkIfDateIsInThePast(visitCreateDto);
+        checkIfTimeIsQuarterOfAnHour(visitCreateDto);
     }
 
-    private static void checkDate(VisitCreateDto visitCreateDto) {
+    private static void checkIfDateIsInThePast(VisitCreateDto visitCreateDto) {
         if (visitCreateDto.getStartingVisitDate().isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("Cannot create a visit for a past date.");
         }
     }
 
-    private static void checkTime(VisitCreateDto visitCreateDto) {
+    private static void checkIfTimeIsQuarterOfAnHour(VisitCreateDto visitCreateDto) {
         int minutes = visitCreateDto.getStartingVisitDate().getMinute();
         if (minutes % 15 != 0) {
             throw new IllegalArgumentException("Visit time must be in quarter-hour intervals.");
-        }
-    }
-
-    private static void checkIfAnyVisitAlreadyExist(VisitCreateDto visitCreateDto, List<Visit> visits) {
-        for (Visit visit : visits) {
-            if (visit.getStartingVisitTime().equals(visitCreateDto.getStartingVisitDate())) {
-                throw new ObjectAlreadyExistException("Visit with given data already exist");
-            }
         }
     }
 

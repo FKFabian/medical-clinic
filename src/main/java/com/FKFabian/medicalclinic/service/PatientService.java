@@ -24,7 +24,7 @@ public class PatientService {
 
     public List<PatientDTO> getPatients() {
         List<Patient> patients = patientRepository.findAll();
-        return patientMapper.toPatientDtoList(patients);
+        return patientMapper.toPatientsDto(patients);
     }
 
     public void delete(String email) {
@@ -43,8 +43,7 @@ public class PatientService {
         Patient patient = patientRepository.findByEmail(email)
                 .orElseThrow(() -> new PatientNotFoundException("Patient with given email " + email + " not found."));
         List<Visit> visits = patient.getVisits();
-        return visitMapper.toVisitDtoList(visits);
-
+        return visitMapper.toVisitsDto(visits);
     }
 
     public PatientDTO addPatient(PatientCreateDto patientCreateDto) {
@@ -78,12 +77,7 @@ public class PatientService {
         Visit visit = visitRepository.findById(visitId)
                 .orElseThrow(() -> new VisitNotFoundException("Visit with given email " + email + " not found."));
         checkVisitAvailability(visit);
-        if (!visit.getPatient().equals(patient)) {
-            visit.setPatient(patient);
-            patient.getVisits().add(visit);
-        } else {
-            throw new IllegalArgumentException("Patient is already assigned to this visit.");
-        }
+        checkIfPatientIsAlreadyAssign(patient, visit);
         visitRepository.save(visit);
         return patientMapper.toPatientDto(patient);
     }
@@ -92,5 +86,15 @@ public class PatientService {
         VisitCreateDto visitCreateDto = visitMapper.toVisitCreateDto(visit);
         VisitValidator.checkIfVisitIsAvailable(visitCreateDto, visitRepository.findAll());
     }
+
+    private void checkIfPatientIsAlreadyAssign(Patient patient, Visit visit) {
+        if (!visit.getPatient().equals(patient)) {
+            visit.setPatient(patient);
+            patient.getVisits().add(visit);
+        } else {
+            throw new IllegalArgumentException("Patient is already assigned to this visit.");
+        }
+    }
+
 }
 
