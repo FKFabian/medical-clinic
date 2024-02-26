@@ -18,6 +18,8 @@ public interface VisitMapper {
     @Mapping(source = "endingVisitDate", target = "endingVisitTime")
     Visit toVisit(VisitCreateDto visitCreateDto);
 
+    @Mapping(source = "startingVisitTime", target = "startingVisitDate")
+    @Mapping(source = "endingVisitTime", target = "endingVisitDate")
     VisitCreateDto toVisitCreateDto(Visit visit);
 
     List<VisitDto> toVisitsDto(List<Visit> visits);

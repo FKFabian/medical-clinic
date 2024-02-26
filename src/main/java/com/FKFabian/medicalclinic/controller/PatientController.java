@@ -53,7 +53,7 @@ public class PatientController {
         return patientService.updatePassword(email, newPassword);
     }
 
-    @PatchMapping("/{email}/visits/{visitId")
+    @PatchMapping("/{email}/visits/{visitId}")
     public PatientDTO assignToVisit(@PathVariable("email") @NotBlank(message = "Invalid email: Empty email") String email, @PathVariable Long visitId) {
         return patientService.assignToVisit(email, visitId);
     }

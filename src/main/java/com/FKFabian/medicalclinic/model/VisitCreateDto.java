@@ -1,14 +1,12 @@
 package com.FKFabian.medicalclinic.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 @Getter
+@Builder
 @ToString
 @EqualsAndHashCode
 public class VisitCreateDto {
