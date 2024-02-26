@@ -14,6 +14,8 @@ public interface VisitMapper {
     @Mapping(target = "patientId", source = "patient.id")
     VisitDto toVisitDto(Visit visit);
 
+    @Mapping(source = "startingVisitDate", target = "startingVisitTime")
+    @Mapping(source = "endingVisitDate", target = "endingVisitTime")
     Visit toVisit(VisitCreateDto visitCreateDto);
 
     VisitCreateDto toVisitCreateDto(Visit visit);

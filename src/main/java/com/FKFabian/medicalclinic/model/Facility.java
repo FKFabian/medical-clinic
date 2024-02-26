@@ -20,11 +20,15 @@ public class Facility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
+    @Column(nullable = false)
     private String city;
+    @Column(nullable = false)
     private String zipCode;
+    @Column(nullable = false)
     private String street;
+    @Column(nullable = false)
     private String noBuilding;
     @ManyToMany(mappedBy = "facilities")
     List<Doctor> doctors = new ArrayList<>();

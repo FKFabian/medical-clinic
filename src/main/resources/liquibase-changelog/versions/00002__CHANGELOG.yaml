@@ -1,0 +1,108 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: FKFabian
+      changes:
+        - createTable:
+            tableName: Doctors
+            columns:
+              - column:
+                  name: id
+                  type: Long
+                  autoIncrement: true
+                  constraints:
+                      nullable: false
+                      primaryKey: true
+                      primaryKeyName: pk_doctor_id
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: unique_doctor_email
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: surname
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: specialization
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: Facilities
+            columns:
+              - column:
+                  name: id
+                  type: Long
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_facility_id
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: city
+                  type: varchar(255)
+                  constraints:
+                      nullable: false
+              - column:
+                  name: zipCode
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: street
+                  type: varchar(255)
+                  constraints:
+                      nullable: false
+              - column:
+                  name: noBuilding
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: Doctors_Facilities
+            columns:
+              - column:
+                  name: doctors_id
+                  type: Long
+                  constraints:
+                    nullable: false
+                    foreignKey: true
+                    foreignKeyName: fk_doctors_facilities_id
+                    reference: Doctors(id)
+              - column:
+                  name: facilities_id
+                  type: Long
+                  constraints:
+                    nullable: false
+                    foreignKey: true
+                    foreignKeyName: fk_facilities_doctors_id
+                    reference: Facilities(id)
+        - addPrimaryKey:
+            tableName: Doctors_Facilities
+            columnName: doctors_id, facilities_id
+            constraintName: pk_doctors_facilities
+
+
+
+
+

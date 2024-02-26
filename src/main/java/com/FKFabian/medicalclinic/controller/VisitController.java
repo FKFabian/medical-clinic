@@ -15,8 +15,9 @@ public class VisitController {
     private final VisitService visitService;
 
     @GetMapping
-    public List<VisitDto> getVisits() {
-        return visitService.getVisits();
+    public List<VisitDto> getVisits(@RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber,
+                                    @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+        return visitService.getVisits(pageNumber, pageSize);
     }
 
     @PostMapping("/{email}")

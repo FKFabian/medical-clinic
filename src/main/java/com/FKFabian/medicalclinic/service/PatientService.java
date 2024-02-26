@@ -28,6 +28,13 @@ public class PatientService {
         return patientMapper.toPatientsDto(patients);
     }
 
+    public List<VisitDto> getVisits(String email) {
+        Patient patient = patientRepository.findByEmail(email)
+                .orElseThrow(() -> new PatientNotFoundException("Patient with given email " + email + " not found."));
+        List<Visit> visits = patient.getVisits();
+        return visitMapper.toVisitsDto(visits);
+    }
+
     public void delete(String email) {
         Patient patient = patientRepository.findByEmail(email)
                 .orElseThrow(() -> new PatientNotFoundException("Patient with given email " + email + " not found."));
@@ -49,6 +56,17 @@ public class PatientService {
         return patientMapper.toPatientDto(patient);
     }
 
+    public PatientDTO assignToVisit(String email, Long visitId) {
+        Patient patient = patientRepository.findByEmail(email)
+                .orElseThrow(() -> new PatientNotFoundException("Patient with given email " + email + " not found."));
+        Visit visit = visitRepository.findById(visitId)
+                .orElseThrow(() -> new VisitNotFoundException("Visit with given email " + email + " not found."));
+        checkVisitAvailability(visit);
+        checkIfPatientIsAlreadyAssign(patient, visit);
+        visitRepository.save(visit);
+        return patientMapper.toPatientDto(patient);
+    }
+
     @Transactional
     public PatientDTO updatePatient(String email, PatientCreateDto patientCreateDto) {
         Patient patient = patientRepository.findByEmail(email)
@@ -66,6 +84,20 @@ public class PatientService {
         patient.setPassword(newPassword);
         Patient updatedPatient = patientRepository.save(patient);
         return patientMapper.toPatientDto(updatedPatient);
+    }
+
+    private void checkVisitAvailability(Visit visit) {
+        VisitCreateDto visitCreateDto = visitMapper.toVisitCreateDto(visit);
+        VisitValidator.checkIfVisitIsAvailable(visitCreateDto);
+    }
+
+    private void checkIfPatientIsAlreadyAssign(Patient patient, Visit visit) {
+        if (!visit.getPatient().equals(patient)) {
+            visit.setPatient(patient);
+            patient.getVisits().add(visit);
+        } else {
+            throw new IllegalArgumentException("Patient is already assigned to this visit.");
+        }
     }
 }
 

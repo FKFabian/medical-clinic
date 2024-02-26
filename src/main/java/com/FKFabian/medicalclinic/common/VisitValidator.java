@@ -1,19 +1,15 @@
 package com.FKFabian.medicalclinic.common;
 
-import com.FKFabian.medicalclinic.model.Visit;
 import com.FKFabian.medicalclinic.model.VisitCreateDto;
-import com.FKFabian.medicalclinic.repository.VisitRepository;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class VisitValidator {
-    private static VisitRepository visitRepository;
 
-    public static void checkIfVisitIsAvailable(VisitCreateDto visitCreateDto, List<Visit> visits) {
+    public static void checkIfVisitIsAvailable(VisitCreateDto visitCreateDto) {
         checkIfDateIsInThePast(visitCreateDto);
         checkIfTimeIsQuarterOfAnHour(visitCreateDto);
     }

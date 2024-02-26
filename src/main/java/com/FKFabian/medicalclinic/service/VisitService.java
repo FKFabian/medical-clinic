@@ -10,6 +10,9 @@ import com.FKFabian.medicalclinic.model.VisitDto;
 import com.FKFabian.medicalclinic.repository.DoctorRepository;
 import com.FKFabian.medicalclinic.repository.VisitRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,14 +25,17 @@ public class VisitService {
     private final VisitMapper visitMapper;
     private final DoctorRepository doctorRepository;
 
-    public List<VisitDto> getVisits() {
-        List<Visit> visits = visitRepository.findAll();
-        return visitMapper.toVisitsDto(visits);
+    public List<VisitDto> getVisits(int pageNumber, int pageSize) {
+        PageRequest sortedByStartingDateDescending = PageRequest.of(pageNumber, pageSize, Sort.by("startingVisitDate").descending());
+        Page<Visit> visits = visitRepository.findAll(sortedByStartingDateDescending);
+        List<Visit> visitsPageToList = visits.getContent();
+        return visitMapper.toVisitsDto(visitsPageToList);
+
     }
 
     public VisitDto addVisit(VisitCreateDto visitCreateDto, String email) {
         VisitValidator.checkIfAnyVisitsValueIsNull(visitCreateDto);
-        VisitValidator.checkIfVisitIsAvailable(visitCreateDto, visitRepository.findAll());
+        VisitValidator.checkIfVisitIsAvailable(visitCreateDto);
         Doctor doctor = doctorRepository.findByEmail(email)
                 .orElseThrow(() -> new DoctorNotFoundException("Doctor with given email " + email + " not found"));
         checkIfDoctorHasAnyVisit(
@@ -41,7 +47,7 @@ public class VisitService {
     }
 
     private void checkIfDoctorHasAnyVisit(LocalDateTime startingVisitDate, LocalDateTime endingVisitDate, Long doctorId) {
-        List<Visit> existingVisits = visitRepository.findAllDoctorVisits(startingVisitDate, endingVisitDate, doctorId);
+        List<Visit> existingVisits = visitRepository.findAllDoctorsVisitsWithGivenTimeRange(startingVisitDate, endingVisitDate, doctorId);
         if (!existingVisits.isEmpty()) {
             throw new IllegalArgumentException("The doctor's visits is already occupied at the specified time.");
         }

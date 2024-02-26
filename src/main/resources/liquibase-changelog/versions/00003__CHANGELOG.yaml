@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: FKFabian
+      changes:
+        - createTable:
+            tableName: Visits
+            columns:
+              - column:
+                  name: id
+                  type: Long
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_visit_id
+              - column:
+                  name: startingVisitTime
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: endingVisitTime
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: patient_id
+                  type: Long
+                  constraints:
+                    foreignKey: true
+                    foreignKeyName: fk_visits_patient_id
+                    references: PATIENTS(id)
+              - column:
+                  name: doctor_id
+                  type: Long
+                  constraints:
+                    foreignKey: true
+                    foreignKeyName: fk_visits_doctor_id
+                    references: Doctors(id)
+
