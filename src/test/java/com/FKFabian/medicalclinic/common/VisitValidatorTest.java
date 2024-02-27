@@ -28,9 +28,9 @@ public class VisitValidatorTest {
         return Stream.of(
                 Arguments.of(new VisitCreateDto(null
                                 , LocalDateTime.of(2000, 1, 1, 1, 1))
-                        , "Start of date cannot be null"),
+                        , "Date cannot be null"),
                 Arguments.of(new VisitCreateDto(LocalDateTime
-                        .of(2000, 1, 1, 1, 1), null), "End of date cannot be null")
+                        .of(2000, 1, 1, 1, 1), null), "Date cannot be null")
         );
     }
 
@@ -47,6 +47,18 @@ public class VisitValidatorTest {
     void checkIfVisitIsAvailable_StartingDateIsInThePast_ThrowsIllegalArgumentException() {
         //given
         VisitCreateDto visitCreateDto = new VisitCreateDto(LocalDateTime.now().minusDays(1), LocalDateTime.now());
+        //when
+        Exception result = assertThrows(IllegalArgumentException.class, () ->
+                VisitValidator.checkIfVisitIsAvailable(visitCreateDto));
+        //then
+        assertEquals("Cannot create a visit for a past date.", result.getMessage());
+    }
+
+    @Test
+    void checkIfVisitIsAvailable_EndingDateIsInThePast_ThrowsIllegalArgumentException() {
+        //given
+        VisitCreateDto visitCreateDto = new VisitCreateDto(LocalDateTime.of(2024,2,27,18,0),
+                LocalDateTime.of(2020,2,27,18,15));
         //when
         Exception result = assertThrows(IllegalArgumentException.class, () ->
                 VisitValidator.checkIfVisitIsAvailable(visitCreateDto));

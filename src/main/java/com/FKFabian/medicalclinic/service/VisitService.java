@@ -30,7 +30,6 @@ public class VisitService {
         Page<Visit> visits = visitRepository.findAll(sortedByStartingDateDescending);
         List<Visit> visitsPageToList = visits.getContent();
         return visitMapper.toVisitsDto(visitsPageToList);
-
     }
 
     public VisitDto addVisit(VisitCreateDto visitCreateDto, String email) {
@@ -38,8 +37,7 @@ public class VisitService {
         VisitValidator.checkIfVisitIsAvailable(visitCreateDto);
         Doctor doctor = doctorRepository.findByEmail(email)
                 .orElseThrow(() -> new DoctorNotFoundException("Doctor with given email " + email + " not found"));
-        checkIfDoctorHasAnyVisit(
-                visitCreateDto.getStartingVisitDate(), visitCreateDto.getEndingVisitDate(), doctor.getId());
+        checkIfDoctorHasAnyVisit(visitCreateDto.getStartingVisitDate(), visitCreateDto.getEndingVisitDate(), doctor.getId());
         Visit visit = visitMapper.toVisit(visitCreateDto);
         visit.setDoctor(doctor);
         visitRepository.save(visit);

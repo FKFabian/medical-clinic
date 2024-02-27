@@ -8,7 +8,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: Long
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     nullable: false
@@ -26,16 +26,15 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: patient_id
-                  type: Long
+                  type: bigint
                   constraints:
                     foreignKey: true
                     foreignKeyName: fk_visits_patient_id
-                    references: PATIENTS(id)
+                    references: Patients(id)
               - column:
                   name: doctor_id
-                  type: Long
+                  type: bigint
                   constraints:
                     foreignKey: true
                     foreignKeyName: fk_visits_doctor_id
                     references: Doctors(id)
-

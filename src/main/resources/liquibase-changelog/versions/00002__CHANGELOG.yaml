@@ -8,7 +8,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: Long
+                  type: bigint
                   autoIncrement: true
                   constraints:
                       nullable: false
@@ -46,7 +46,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: Long
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     nullable: false
@@ -83,7 +83,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: doctors_id
-                  type: Long
+                  type: bigint
                   constraints:
                     nullable: false
                     foreignKey: true
@@ -91,7 +91,7 @@ databaseChangeLog:
                     reference: Doctors(id)
               - column:
                   name: facilities_id
-                  type: Long
+                  type: bigint
                   constraints:
                     nullable: false
                     foreignKey: true
@@ -99,10 +99,5 @@ databaseChangeLog:
                     reference: Facilities(id)
         - addPrimaryKey:
             tableName: Doctors_Facilities
-            columnName: doctors_id, facilities_id
+            columnNames: doctors_id, facilities_id
             constraintName: pk_doctors_facilities
-
-
-
-
-

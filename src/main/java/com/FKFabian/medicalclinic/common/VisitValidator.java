@@ -10,12 +10,19 @@ import java.time.LocalDateTime;
 public class VisitValidator {
 
     public static void checkIfVisitIsAvailable(VisitCreateDto visitCreateDto) {
-        checkIfDateIsInThePast(visitCreateDto);
+        checkIfStartingDateIsInThePast(visitCreateDto);
+        checkIfEndingDateIsInThePast(visitCreateDto);
         checkIfTimeIsQuarterOfAnHour(visitCreateDto);
     }
 
-    private static void checkIfDateIsInThePast(VisitCreateDto visitCreateDto) {
+    private static void checkIfStartingDateIsInThePast(VisitCreateDto visitCreateDto) {
         if (visitCreateDto.getStartingVisitDate().isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("Cannot create a visit for a past date.");
+        }
+    }
+
+    private static void checkIfEndingDateIsInThePast(VisitCreateDto visitCreateDto) {
+        if (visitCreateDto.getEndingVisitDate().isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("Cannot create a visit for a past date.");
         }
     }
@@ -28,11 +35,8 @@ public class VisitValidator {
     }
 
     public static void checkIfAnyVisitsValueIsNull(VisitCreateDto visitCreateDto) {
-        if (visitCreateDto.getStartingVisitDate() == null) {
-            throw new IllegalArgumentException("Start of date cannot be null");
-        }
-        if (visitCreateDto.getEndingVisitDate() == null) {
-            throw new IllegalArgumentException("End of date cannot be null");
+        if (visitCreateDto.getStartingVisitDate() == null || visitCreateDto.getEndingVisitDate() == null) {
+            throw new IllegalArgumentException("Date cannot be null");
         }
     }
 }

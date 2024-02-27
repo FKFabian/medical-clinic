@@ -4,11 +4,11 @@ databaseChangeLog:
       author: FKFabian
       changes:
         - createTable:
-            tableName: PATIENTS
+            tableName: Patients
             columns:
               - column:
                   name: id
-                  type: long
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     nullable: false
@@ -32,7 +32,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     unique: true
-                    uniqueConstraintName: unique_patient_id_Card_No
+                    uniqueConstraintName: unique_patient_id_card_no
               - column:
                   name: firstName
                   type: varchar(255)
@@ -53,7 +53,3 @@ databaseChangeLog:
                   type: date
                   constraints:
                     nullable: false
-
-
-
-
