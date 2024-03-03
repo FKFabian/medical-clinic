@@ -40,9 +40,9 @@ public class DoctorServiceTest {
     void getDoctors_dataCorrect_ReturnDoctorsList() {
         //given
         Doctor doctor1 = new Doctor(1L, "111", "111", "111"
-                , "111", "111", new ArrayList<>());
+                , "111", "111", new ArrayList<>(), new ArrayList<>());
         Doctor doctor2 = new Doctor(2L, "222", "222", "222"
-                , "222", "222", new ArrayList<>());
+                , "222", "222", new ArrayList<>(), new ArrayList<>());
         List<Doctor> list = Arrays.asList(doctor1, doctor2);
         when(doctorRepository.findAll()).thenReturn(list);
         //when
@@ -70,7 +70,7 @@ public class DoctorServiceTest {
         //given
         String email = "email@gmail.com";
         Doctor doctor = new Doctor(1L, "111", "111", "111"
-                , "111", "111", List.of());
+                , "111", "111", new ArrayList<>(), new ArrayList<>());
         when(doctorRepository.findByEmail(email)).thenReturn(Optional.of(doctor));
         //when
         DoctorDTO result = doctorService.getDoctor(email);
@@ -85,7 +85,7 @@ public class DoctorServiceTest {
     void addDoctor_correctData_ReturnDoctorDto() {
         //given
         Doctor doctor = new Doctor(1L, "111", "111", "111"
-                , "111", "111", List.of());
+                , "111", "111", new ArrayList<>(), new ArrayList<>());
         DoctorCreateDto doctorCreateDto = new DoctorCreateDto("111", "111"
                 , "111", "111", "111");
         when(doctorRepository.save(doctor)).thenReturn(doctor);
@@ -101,7 +101,8 @@ public class DoctorServiceTest {
         //given
         DoctorCreateDto doctorCreateDto = new DoctorCreateDto("111", "111", null, "111", "111");
         //when
-        Exception result = assertThrows(IllegalArgumentException.class, () -> doctorService.addDoctor(doctorCreateDto));
+        Exception result = assertThrows(IllegalArgumentException.class,
+                () -> doctorService.addDoctor(doctorCreateDto));
         //then
         assertEquals("First name cannot be null", result.getMessage());
     }
@@ -145,7 +146,7 @@ public class DoctorServiceTest {
         String email = "email@com";
         Long facilityId = 11L;
         Doctor doctor = new Doctor(1L, "email@com", "111", "111"
-                , "111", "111", new ArrayList<>());
+                , "111", "111", new ArrayList<>(), new ArrayList<>());
         Facility facility = new Facility(11L, "222", "222"
                 , "222", "222", "222", new ArrayList<>());
         when(doctorRepository.findByEmail(email)).thenReturn(Optional.of(doctor));

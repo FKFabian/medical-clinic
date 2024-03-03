@@ -2,6 +2,7 @@ package com.FKFabian.medicalclinic.controller;
 
 import com.FKFabian.medicalclinic.model.PatientCreateDto;
 import com.FKFabian.medicalclinic.model.PatientDTO;
+import com.FKFabian.medicalclinic.model.VisitDto;
 import com.FKFabian.medicalclinic.service.PatientService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +23,13 @@ public class PatientController {
     }
 
     @GetMapping("/{email}")
-    public PatientDTO getPatient(@PathVariable("email") String email) {
+    public PatientDTO getPatient(@PathVariable("email") @NotBlank(message = "Invalid email: Empty email") String email) {
         return patientService.getPatient(email);
+    }
+
+    @GetMapping("/{email}/visits")
+    public List<VisitDto> getPatientVisits(@PathVariable("email") @NotBlank(message = "Invalid email: Empty email") String email) {
+        return patientService.getVisits(email);
     }
 
     @DeleteMapping("/{email}")
@@ -38,12 +44,17 @@ public class PatientController {
     }
 
     @PutMapping("/{email}")
-    public PatientDTO updatePatient(@PathVariable("email") String email, @RequestBody PatientCreateDto patientCreateDto) {
+    public PatientDTO updatePatient(@PathVariable("email") @NotBlank(message = "Invalid email: Empty email") String email, @RequestBody PatientCreateDto patientCreateDto) {
         return patientService.updatePatient(email, patientCreateDto);
     }
 
     @PatchMapping("/{email}")
-    public PatientDTO updatePassword(@PathVariable("email") String email, @NotBlank(message = "Invalid password: Empty password") @RequestBody String newPassword) {
+    public PatientDTO updatePassword(@PathVariable("email") @NotBlank(message = "Invalid email: Empty email") String email, @NotBlank(message = "Invalid password: Empty password") @RequestBody String newPassword) {
         return patientService.updatePassword(email, newPassword);
+    }
+
+    @PatchMapping("/{email}/visits/{visitId}")
+    public PatientDTO assignToVisit(@PathVariable("email") @NotBlank(message = "Invalid email: Empty email") String email, @PathVariable Long visitId) {
+        return patientService.assignToVisit(email, visitId);
     }
 }

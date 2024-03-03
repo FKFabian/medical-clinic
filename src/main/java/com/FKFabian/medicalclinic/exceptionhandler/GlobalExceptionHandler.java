@@ -1,10 +1,6 @@
 package com.FKFabian.medicalclinic.exceptionhandler;
 
-import com.FKFabian.medicalclinic.exceptions.DoctorNotFoundException;
-import com.FKFabian.medicalclinic.exceptions.FacilityNotFoundException;
-import com.FKFabian.medicalclinic.exceptions.MedicalException;
-import com.FKFabian.medicalclinic.exceptions.ObjectAlreadyExistException;
-import com.FKFabian.medicalclinic.exceptions.PatientNotFoundException;
+import com.FKFabian.medicalclinic.exceptions.*;
 import com.FKFabian.medicalclinic.message.Message;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;

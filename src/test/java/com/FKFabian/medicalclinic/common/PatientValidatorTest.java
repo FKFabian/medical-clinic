@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import static com.FKFabian.medicalclinic.common.PatientValidator.checkIfAnyValueIsNull;
@@ -116,7 +117,7 @@ public class PatientValidatorTest {
         Patient patient = new Patient(1L, "patient1@gmail.com"
                 , "pass1", "idCard1", "John"
                 , "Smith", "444-444-444"
-                , LocalDate.of(2000, 12, 5));
+                , LocalDate.of(2000, 12, 5), new ArrayList<>());
         PatientCreateDto patientCreateDto = new PatientCreateDto("patient@gmail.com"
                 , "pass1", "idCard2", "John"
                 , "Smith", "333-333-333"
@@ -134,7 +135,7 @@ public class PatientValidatorTest {
         Patient patient = new Patient(1L, "patient1@gmail.com"
                 , "pass1", "idCard1", "John"
                 , "Smith", "444-444-444"
-                , LocalDate.of(2000, 12, 5));
+                , LocalDate.of(2000, 12, 5), new ArrayList<>());
         PatientCreateDto patientCreateDto = new PatientCreateDto("patient@gmail.com"
                 , "pass1", "idCard1", "John"
                 , "Smith", "333-333-333"

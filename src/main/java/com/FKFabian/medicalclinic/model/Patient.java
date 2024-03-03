@@ -1,15 +1,21 @@
 package com.FKFabian.medicalclinic.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "PATIENTS")
+@Table(name = "Patients")
 @NoArgsConstructor
 public class Patient {
     @Id
@@ -29,6 +35,8 @@ public class Patient {
     private String phoneNumber;
     @Column(nullable = false)
     private LocalDate birthday;
+    @OneToMany(mappedBy = "patient")
+    private List<Visit> visits = new ArrayList<>();
 
     public void update(PatientCreateDto patientCreateDto) {
         this.email = patientCreateDto.getEmail();
@@ -68,6 +76,7 @@ public class Patient {
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", birthday=" + birthday +
+                ", visits='" + Arrays.toString(visits.stream().map(Visit::getId).toArray()) +
                 '}';
     }
 }

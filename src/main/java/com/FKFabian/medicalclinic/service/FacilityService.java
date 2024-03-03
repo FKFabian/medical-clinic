@@ -1,12 +1,12 @@
 package com.FKFabian.medicalclinic.service;
 
-import com.FKFabian.medicalclinic.common.DoctorValidator;
 import com.FKFabian.medicalclinic.common.FacilityValidator;
-import com.FKFabian.medicalclinic.common.PatientValidator;
 import com.FKFabian.medicalclinic.exceptions.FacilityNotFoundException;
 import com.FKFabian.medicalclinic.mapper.DoctorMapper;
 import com.FKFabian.medicalclinic.mapper.FacilityMapper;
-import com.FKFabian.medicalclinic.model.*;
+import com.FKFabian.medicalclinic.model.Facility;
+import com.FKFabian.medicalclinic.model.FacilityCreateDto;
+import com.FKFabian.medicalclinic.model.FacilityDTO;
 import com.FKFabian.medicalclinic.repository.FacilityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class FacilityService {
 
     public List<FacilityDTO> getFacilities() {
         List<Facility> facilities = facilityRepository.findAll();
-        return facilityMapper.toPatientDtoList(facilities);
+        return facilityMapper.toPatientsDto(facilities);
     }
 
     public FacilityDTO getFacility(Long id) {

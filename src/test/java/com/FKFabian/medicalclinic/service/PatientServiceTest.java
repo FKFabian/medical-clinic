@@ -2,10 +2,12 @@ package com.FKFabian.medicalclinic.service;
 
 import com.FKFabian.medicalclinic.exceptions.PatientNotFoundException;
 import com.FKFabian.medicalclinic.mapper.PatientMapper;
+import com.FKFabian.medicalclinic.mapper.VisitMapper;
 import com.FKFabian.medicalclinic.model.Patient;
 import com.FKFabian.medicalclinic.model.PatientCreateDto;
 import com.FKFabian.medicalclinic.model.PatientDTO;
 import com.FKFabian.medicalclinic.repository.PatientRepository;
+import com.FKFabian.medicalclinic.repository.VisitRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +15,7 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -26,12 +29,14 @@ public class PatientServiceTest {
     PatientService patientService;
     PatientRepository patientRepository;
     PatientMapper patientMapper;
+    VisitMapper visitMapper;
+    VisitRepository visitRepository;
 
     @BeforeEach
     void init() {
         this.patientRepository = Mockito.mock(PatientRepository.class);
         this.patientMapper = Mappers.getMapper(PatientMapper.class);
-        this.patientService = new PatientService(patientRepository, patientMapper);
+        this.patientService = new PatientService(patientRepository, patientMapper, visitMapper, visitRepository);
     }
 
     @Test
@@ -40,11 +45,11 @@ public class PatientServiceTest {
         Patient patient1 = new Patient(1L, "patient1@gmail.com"
                 , "pass1", "idCard1", "John"
                 , "Smith", "444-444-444"
-                , LocalDate.of(2000, 12, 5));
+                , LocalDate.of(2000, 12, 5), new ArrayList<>());
         Patient patient2 = new Patient(1L, "patient1@gmail.com"
                 , "pass1", "idCard1", "John"
                 , "Smith", "444-444-444"
-                , LocalDate.of(1999, 10, 3));
+                , LocalDate.of(1999, 10, 3), new ArrayList<>());
         List<Patient> patients = Arrays.asList(patient1, patient2);
         when(patientRepository.findAll()).thenReturn(patients);
         // when
@@ -72,7 +77,7 @@ public class PatientServiceTest {
         Patient patient = new Patient(1L, "patient1@gmail.com"
                 , "pass1", "idCard1", "John"
                 , "Smith", "444-444-444"
-                , LocalDate.of(2000, 12, 5));
+                , LocalDate.of(2000, 12, 5), new ArrayList<>());
 
         String email = "patient1@gmail.com";
         when(patientRepository.findByEmail(email)).thenReturn(Optional.of(patient));
@@ -107,7 +112,7 @@ public class PatientServiceTest {
         Patient patient = new Patient(1L, "patient1@gmail.com"
                 , "pass1", "idCard1", "John"
                 , "Smith", "444-444-444"
-                , LocalDate.of(2000, 12, 5));
+                , LocalDate.of(2000, 12, 5), new ArrayList<>());
         when(patientRepository.save(any())).thenReturn(patient);
         // when
         var result = patientService.addPatient(patientCreateDto);
@@ -123,7 +128,7 @@ public class PatientServiceTest {
         Patient patient = new Patient(1L, "patient1@gmail.com"
                 , "pass1", "idCard1", "John"
                 , "Smith", "444-444-444"
-                , LocalDate.of(2000, 12, 5));
+                , LocalDate.of(2000, 12, 5), new ArrayList<>());
         when(patientRepository.findByEmail(email)).thenReturn(Optional.of(patient));
         //when
         patientService.delete(email);
@@ -148,7 +153,7 @@ public class PatientServiceTest {
         String email = "wrong@email";
         // when
         PatientNotFoundException result = assertThrows(PatientNotFoundException.class
-                , () -> patientService.updatePatient(email, any())); //  czy moge zastosowac any zamiast patientCreateDto?
+                , () -> patientService.updatePatient(email, any()));
         //then
         assertEquals("Patient with given email " + email + " not found.", result.getMessage());
     }
@@ -164,7 +169,7 @@ public class PatientServiceTest {
         Patient patient = new Patient(1L, "patient@gmail.com"
                 , "pass1", "idCard1", "John"
                 , "Smith", "444-444-444"
-                , LocalDate.of(2000, 12, 5));
+                , LocalDate.of(2000, 12, 5), new ArrayList<>());
 
         when(patientRepository.findByEmail(email)).thenReturn(Optional.of(patient));
         when(patientRepository.save(patient)).thenReturn(patient);
@@ -196,11 +201,11 @@ public class PatientServiceTest {
         Patient patient = new Patient(1L, "patient@gmail.com"
                 , "pass1", "idCard1", "John"
                 , "Smith", "444-444-444"
-                , LocalDate.of(2000, 12, 5));
+                , LocalDate.of(2000, 12, 5), new ArrayList<>());
         Patient updatePatient = new Patient(1L, "patient@gmail.com"
                 , "newpassword", "idCard1", "John"
                 , "Smith", "444-444-444"
-                , LocalDate.of(2000, 12, 5));
+                , LocalDate.of(2000, 12, 5), new ArrayList<>());
         when(patientRepository.findByEmail(email)).thenReturn(Optional.of(patient));
         when(patientRepository.save(patient)).thenReturn(patient);
         // when

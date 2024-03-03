@@ -5,14 +5,15 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+
 @RequiredArgsConstructor
 @Getter
 @ToString
 @EqualsAndHashCode
-public class FacilityCreateDto {
-    private final String name;
-    private final String city;
-    private final String zipCode;
-    private final String street;
-    private final String noBuilding;
+public class VisitDto {
+    private final LocalDateTime startingVisitDate;
+    private final LocalDateTime endingVisitDate;
+    private final Long patientId;
+    private final Long doctorId;
 }

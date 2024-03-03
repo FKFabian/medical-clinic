@@ -3,13 +3,13 @@ package com.FKFabian.medicalclinic.mapper;
 import com.FKFabian.medicalclinic.model.Patient;
 import com.FKFabian.medicalclinic.model.PatientCreateDto;
 import com.FKFabian.medicalclinic.model.PatientDTO;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -51,7 +51,7 @@ public class PatientMapperTest {
         return new Patient(null, "patient1@gmail.com"
                 , "pass1", "idCard1", "John"
                 , "Smith", "333-333-333"
-                , LocalDate.of(2000, 12, 5));
+                , LocalDate.of(2000, 12, 5), new ArrayList<>());
     }
 
     private static PatientDTO createPatientDto() {
