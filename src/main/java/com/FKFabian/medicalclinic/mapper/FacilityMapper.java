@@ -28,5 +28,5 @@ public interface FacilityMapper {
                 .toList();
     }
 
-    List<FacilityDTO> toPatientsDto(List<Facility> patients);
+    List<FacilityDTO> toPatientDtoList(List<Facility> patients);
 }

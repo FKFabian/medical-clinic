@@ -3,12 +3,14 @@ package com.FKFabian.medicalclinic.mapper;
 import com.FKFabian.medicalclinic.model.Doctor;
 import com.FKFabian.medicalclinic.model.DoctorCreateDto;
 import com.FKFabian.medicalclinic.model.DoctorDTO;
+import com.FKFabian.medicalclinic.model.Facility;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mapstruct.factory.Mappers;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -57,7 +59,7 @@ public class DoctorMapperTest {
     private static Doctor createDoctor() {
         return new Doctor(null, "111"
                 , "111", "111"
-                , "111", "111", new ArrayList<>(), new ArrayList<>());
+                , "111", "111", new ArrayList<>());
     }
 
     private static DoctorDTO createDoctorDto() {

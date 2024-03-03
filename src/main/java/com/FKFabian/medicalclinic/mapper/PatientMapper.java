@@ -1,8 +1,6 @@
 package com.FKFabian.medicalclinic.mapper;
 
-import com.FKFabian.medicalclinic.model.Patient;
-import com.FKFabian.medicalclinic.model.PatientCreateDto;
-import com.FKFabian.medicalclinic.model.PatientDTO;
+import com.FKFabian.medicalclinic.model.*;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -13,5 +11,5 @@ public interface PatientMapper {
 
     Patient toPatient(PatientCreateDto patientCreateDto);
 
-    List<PatientDTO> toPatientsDto(List<Patient> patients);
+    List<PatientDTO> toPatientDtoList(List<Patient> patients);
 }

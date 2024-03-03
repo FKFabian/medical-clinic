@@ -28,5 +28,5 @@ public interface DoctorMapper {
                 .toList();
     }
 
-    List<DoctorDTO> toDoctorsDto(List<Doctor> doctors);
+    List<DoctorDTO> toPatientDtoList(List<Doctor> patients);
 }

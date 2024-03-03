@@ -1,14 +1,14 @@
 package com.FKFabian.medicalclinic.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,15 +20,10 @@ public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, unique = true)
     private String email;
-    @Column(nullable = false)
     private String password;
-    @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
     private String surname;
-    @Column(nullable = false)
     private String specialization;
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
@@ -36,9 +31,8 @@ public class Doctor {
             joinColumns = {@JoinColumn(name = "doctors_id")},
             inverseJoinColumns = {@JoinColumn(name = "facilities_id")}
     )
+
     List<Facility> facilities = new ArrayList<>();
-    @OneToMany(mappedBy = "doctor")
-    List<Visit> visits = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
@@ -67,7 +61,6 @@ public class Doctor {
                 ", surname='" + surname + '\'' +
                 ", specialization='" + specialization + '\'' +
                 ", facilities=" + Arrays.toString(facilities.stream().map(Facility::getId).toArray()) +
-                ", visits='" + Arrays.toString(visits.stream().map(Visit::getId).toArray()) +
                 '}';
     }
 }

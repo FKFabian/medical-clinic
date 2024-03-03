@@ -1,6 +1,8 @@
 package com.FKFabian.medicalclinic.common;
 
 import com.FKFabian.medicalclinic.exceptions.ObjectAlreadyExistException;
+import com.FKFabian.medicalclinic.model.Doctor;
+import com.FKFabian.medicalclinic.model.DoctorCreateDto;
 import com.FKFabian.medicalclinic.model.Facility;
 import com.FKFabian.medicalclinic.model.FacilityCreateDto;
 import lombok.AccessLevel;

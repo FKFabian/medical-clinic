@@ -1,14 +1,14 @@
 package com.FKFabian.medicalclinic.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.mapstruct.Mapper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,15 +20,11 @@ public class Facility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String name;
-    @Column(nullable = false)
     private String city;
-    @Column(nullable = false)
     private String zipCode;
-    @Column(nullable = false)
     private String street;
-    @Column(nullable = false)
     private String noBuilding;
     @ManyToMany(mappedBy = "facilities")
     List<Doctor> doctors = new ArrayList<>();

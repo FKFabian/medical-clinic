@@ -1,11 +1,11 @@
 package com.FKFabian.medicalclinic.controller;
 
-import com.FKFabian.medicalclinic.model.DoctorCreateDto;
-import com.FKFabian.medicalclinic.model.DoctorDTO;
+import com.FKFabian.medicalclinic.model.*;
 import com.FKFabian.medicalclinic.service.DoctorService;
 import com.FKFabian.medicalclinic.service.FacilityService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
