@@ -33,7 +33,7 @@ public class DoctorValidatorTest {
                         , "Password cannot be null"),
                 Arguments.of(new DoctorCreateDto("111", "111"
                                 , null, "111", "111")
-                        , "First cannot be null"),
+                        , "First name cannot be null"),
                 Arguments.of(new DoctorCreateDto("111", "111"
                                 , "111", null, "111")
                         , "Last name cannot be null"),

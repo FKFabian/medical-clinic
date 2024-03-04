@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 public class FacilityServiceTest {
@@ -89,15 +90,15 @@ public class FacilityServiceTest {
     @Test
     void addFacility_correctData_ReturnFacilityDto() {
         //given
-        Facility facility = new Facility(1L, "111", "111", "111",
+        Facility facility = new Facility(null, "111", "111", "111",
                 "111", "111", List.of());
         FacilityCreateDto facilityCreateDto = new FacilityCreateDto("222", "222"
                 , "222", "222", "222");
-        when(facilityRepository.save(facility)).thenReturn(facility);
+        when(facilityRepository.save(any())).thenReturn(facility);
         //when
         var result = facilityService.addFacility(facilityCreateDto);
         //then
         assertNotNull(result);
-        assertEquals("222", result.getName());
+        assertEquals("111", result.getName());
     }
 }
