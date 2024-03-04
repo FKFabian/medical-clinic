@@ -88,7 +88,7 @@ public class DoctorServiceTest {
                 , "111", "111", new ArrayList<>(), new ArrayList<>());
         DoctorCreateDto doctorCreateDto = new DoctorCreateDto("111", "111"
                 , "111", "111", "111");
-        when(doctorRepository.save(doctor)).thenReturn(doctor);
+        when(doctorRepository.save(any())).thenReturn(doctor);
         //when
         var result = doctorService.addDoctor(doctorCreateDto);
         //then

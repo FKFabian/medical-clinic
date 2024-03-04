@@ -12,6 +12,8 @@ import java.util.List;
 public interface VisitMapper {
     @Mapping(target = "doctorId", source = "doctor.id")
     @Mapping(target = "patientId", source = "patient.id")
+    @Mapping(source = "startingVisitTime", target = "startingVisitDate")
+    @Mapping(source = "endingVisitTime", target = "endingVisitDate")
     VisitDto toVisitDto(Visit visit);
 
     @Mapping(source = "startingVisitDate", target = "startingVisitTime")
