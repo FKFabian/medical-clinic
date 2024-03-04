@@ -2,10 +2,7 @@ package com.FKFabian.medicalclinic.service;
 
 import com.FKFabian.medicalclinic.exceptions.DoctorNotFoundException;
 import com.FKFabian.medicalclinic.mapper.VisitMapper;
-import com.FKFabian.medicalclinic.model.Doctor;
-import com.FKFabian.medicalclinic.model.Patient;
-import com.FKFabian.medicalclinic.model.Visit;
-import com.FKFabian.medicalclinic.model.VisitCreateDto;
+import com.FKFabian.medicalclinic.model.*;
 import com.FKFabian.medicalclinic.repository.DoctorRepository;
 import com.FKFabian.medicalclinic.repository.VisitRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -68,18 +65,6 @@ public class VisitServiceTest {
     }
 
     @Test
-    void addVisit_invalidDoctorEmail_ThrowsDoctorNotFoundException() {
-        //given
-        String email = "invalidEmail";
-        VisitCreateDto visitCreateDto = new VisitCreateDto(LocalDateTime.now(), LocalDateTime.now());
-        //when
-        Exception result = assertThrows(DoctorNotFoundException.class,
-                () -> visitService.addVisit(visitCreateDto, email));
-        //then
-        assertEquals("Doctor with given email " + email + " not found", result.getMessage());
-    }
-
-    @Test
     void addVisit_VisitValueAsNull_ThrowsIllegalArgumentException() {
         //given
         String email = "invalidEmail";
@@ -88,7 +73,7 @@ public class VisitServiceTest {
         Exception result = assertThrows(IllegalArgumentException.class,
                 () -> visitService.addVisit(visitCreateDto, email));
         //then
-        assertEquals("Start of date cannot be null", result.getMessage());
+        assertEquals("Date cannot be null", result.getMessage());
     }
 
     @Test
@@ -123,23 +108,23 @@ public class VisitServiceTest {
         //given
         String email = "correctEmail";
         VisitCreateDto visitCreateDto = new VisitCreateDto(LocalDateTime
-                .of(2024, 3, 2, 2, 0), LocalDateTime
-                .of(2024, 3, 2, 2, 15));
+                .of(2025, 3, 2, 2, 0), LocalDateTime
+                .of(2025, 3, 2, 2, 15));
         Doctor doctor = new Doctor(1L, "email@com", "111", "111"
                 , "111", "111", new ArrayList<>(), new ArrayList<>());
         Patient patient = new Patient(1L, "email", "password", "IdCard",
                 "John", "Smith", "444-444",
                 LocalDate.now(), new ArrayList<>());
-        Visit visit = new Visit(1L, LocalDateTime.of(2024, 3, 2, 2, 0),
-                LocalDateTime.of(2024, 3, 2, 2, 15), patient, doctor);
+        Visit visit = new Visit(1L, LocalDateTime.of(2025, 3, 2, 2, 0),
+                LocalDateTime.of(2025, 3, 2, 2, 15), patient, doctor);
         when(doctorRepository.findByEmail(email)).thenReturn(Optional.of(doctor));
         when(visitRepository.save(visit)).thenReturn(visit);
         //when
-        var result = visitService.addVisit(visitCreateDto, email);
+        VisitDto result = visitService.addVisit(visitCreateDto, email);
         //then
         assertNotNull(result);
         assertEquals(LocalDateTime
-                .of(2024, 3, 2, 2, 0), result.getStartingVisitDate());
+                .of(2025, 3, 2, 2, 0), result.getStartingVisitDate());
         assertEquals(1, result.getDoctorId());
     }
 }

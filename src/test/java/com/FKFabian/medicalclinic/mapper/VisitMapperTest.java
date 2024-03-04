@@ -26,7 +26,7 @@ public class VisitMapperTest {
     @ParameterizedTest
     @MethodSource("dataToVisitTest")
     void toVisitTest(VisitCreateDto visitCreateDto, Visit expectedVisit) {
-        Visit result = visitMapper.toVisit(createVisitCreateDto());
+        Visit result = visitMapper.toVisit(visitCreateDto);
         assertEquals(expectedVisit.getStartingVisitTime(), result.getStartingVisitTime());
     }
 

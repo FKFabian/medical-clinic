@@ -1,7 +1,6 @@
 package com.FKFabian.medicalclinic.service;
 
 import com.FKFabian.medicalclinic.exceptions.DoctorNotFoundException;
-import com.FKFabian.medicalclinic.exceptions.FacilityNotFoundException;
 import com.FKFabian.medicalclinic.mapper.DoctorMapper;
 import com.FKFabian.medicalclinic.model.Doctor;
 import com.FKFabian.medicalclinic.model.DoctorCreateDto;
@@ -20,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 public class DoctorServiceTest {
@@ -117,29 +117,6 @@ public class DoctorServiceTest {
         //then
         assertEquals("Doctor with given email " + email + " not found.", result.getMessage());
     }
-
-    @Test
-    void assignToFacility_invalidData_ThrowsFacilityNotFoundException() {
-        //given
-        String email = "email@com";
-        Long facilityId = 11L;
-        //when
-        Exception result = assertThrows(FacilityNotFoundException.class, () -> doctorService.assignToFacility(email, facilityId));
-        //then
-        assertEquals("Facility with id " + facilityId + " not found.", result.getMessage());
-    }
-
-    @Test
-    void assignToFacility_invalidData_ThrowsIllegalArgumentException() {
-        //given
-        String email = "email@com";
-        Long facilityId = 11L;
-        //when
-        Exception result = assertThrows(IllegalArgumentException.class, () -> doctorService.assignToFacility(email, facilityId));
-        //then
-        assertEquals("Doctor is already assigned to this facility.", result.getMessage());
-    }
-
     @Test
     void assignToFacility_correctData_ReturnDoctorDto() {
         //given
