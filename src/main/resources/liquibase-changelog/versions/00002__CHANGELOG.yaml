@@ -4,10 +4,10 @@ databaseChangeLog:
       author: FKFabian
       changes:
         - createTable:
-            tableName: Doctors
+            tableName: DOCTORS
             columns:
               - column:
-                  name: id
+                  name: ID
                   type: bigint
                   autoIncrement: true
                   constraints:
@@ -15,37 +15,37 @@ databaseChangeLog:
                       primaryKey: true
                       primaryKeyName: pk_doctor_id
               - column:
-                  name: email
+                  name: EMAIL
                   type: varchar(255)
                   constraints:
                     nullable: false
                     unique: true
                     uniqueConstraintName: unique_doctor_email
               - column:
-                  name: password
+                  name: PASSWORD
                   type: varchar(255)
                   constraints:
                     nullable: false
               - column:
-                  name: name
+                  name: NAME
                   type: varchar(255)
                   constraints:
                     nullable: false
               - column:
-                  name: surname
+                  name: SURNAME
                   type: varchar(255)
                   constraints:
                     nullable: false
               - column:
-                  name: specialization
+                  name: SPECIALIZATION
                   type: varchar(255)
                   constraints:
                     nullable: false
         - createTable:
-            tableName: Facilities
+            tableName: FACILITIES
             columns:
               - column:
-                  name: id
+                  name: ID
                   type: bigint
                   autoIncrement: true
                   constraints:
@@ -53,51 +53,51 @@ databaseChangeLog:
                     primaryKey: true
                     primaryKeyName: pk_facility_id
               - column:
-                  name: name
+                  name: NAME
                   type: varchar(255)
                   constraints:
                     nullable: false
                     unique: true
               - column:
-                  name: city
+                  name: CITY
                   type: varchar(255)
                   constraints:
                       nullable: false
               - column:
-                  name: zipCode
+                  name: ZIP_CODE
                   type: varchar(255)
                   constraints:
                     nullable: false
               - column:
-                  name: street
+                  name: STREET
                   type: varchar(255)
                   constraints:
                       nullable: false
               - column:
-                  name: noBuilding
+                  name: NO_BUILDING
                   type: varchar(255)
                   constraints:
                     nullable: false
         - createTable:
-            tableName: Doctors_Facilities
+            tableName: DOCTORS_FACILITIES
             columns:
               - column:
-                  name: doctors_id
+                  name: DOCTORS_ID
                   type: bigint
                   constraints:
                     nullable: false
                     foreignKey: true
                     foreignKeyName: fk_doctors_facilities_id
-                    reference: Doctors(id)
+                    reference: DOCTORS(ID)
               - column:
-                  name: facilities_id
+                  name: FACILITIES_ID
                   type: bigint
                   constraints:
                     nullable: false
                     foreignKey: true
                     foreignKeyName: fk_facilities_doctors_id
-                    reference: Facilities(id)
+                    reference: FACILITIES(ID)
         - addPrimaryKey:
-            tableName: Doctors_Facilities
-            columnNames: doctors_id, facilities_id
+            tableName: DOCTORS_FACILITIES
+            columnNames: DOCTORS_ID, FACILITIES_ID
             constraintName: pk_doctors_facilities

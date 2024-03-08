@@ -4,10 +4,10 @@ databaseChangeLog:
       author: FKFabian
       changes:
         - createTable:
-            tableName: Visits
+            tableName: VISITS
             columns:
               - column:
-                  name: id
+                  name: ID
                   type: bigint
                   autoIncrement: true
                   constraints:
@@ -15,26 +15,26 @@ databaseChangeLog:
                     primaryKey: true
                     primaryKeyName: pk_visit_id
               - column:
-                  name: startingVisitTime
+                  name: STARTING_VISIT_TIME
                   type: date
                   constraints:
                     nullable: false
               - column:
-                  name: endingVisitTime
+                  name: ENDING_VISIT_TIME
                   type: date
                   constraints:
                     nullable: false
               - column:
-                  name: patient_id
+                  name: PATIENT_ID
                   type: bigint
                   constraints:
                     foreignKey: true
                     foreignKeyName: fk_visits_patient_id
-                    references: Patients(id)
+                    references: PATIENTS(ID)
               - column:
-                  name: doctor_id
+                  name: DOCTOR_ID
                   type: bigint
                   constraints:
                     foreignKey: true
                     foreignKeyName: fk_visits_doctor_id
-                    references: Doctors(id)
+                    references: DOCTORS(ID)

@@ -15,26 +15,27 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "Doctors")
+@Table(name = "DOCTORS")
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, name = "EMAIL")
     private String email;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "PASSWORD")
     private String password;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "NAME")
     private String name;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "SURNAME")
     private String surname;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "SPECIALIZATION")
     private String specialization;
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
-            name = "Doctors_Facilities",
-            joinColumns = {@JoinColumn(name = "doctors_id")},
-            inverseJoinColumns = {@JoinColumn(name = "facilities_id")}
+            name = "DOCTORS_FACILITIES",
+            joinColumns = {@JoinColumn(name = "DOCTORS_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "FACILITIES_ID")}
     )
     List<Facility> facilities = new ArrayList<>();
     @OneToMany(mappedBy = "doctor")
