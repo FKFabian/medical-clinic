@@ -4,7 +4,7 @@ databaseChangeLog:
       author: FKFabian
       changes:
         - createTable:
-            tableName: Doctors
+            tableName: DOCTORS
             columns:
               - column:
                   name: ID
@@ -42,7 +42,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - createTable:
-            tableName: Facilities
+            tableName: FACILITIES
             columns:
               - column:
                   name: ID
@@ -79,7 +79,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - createTable:
-            tableName: Doctors_Facilities
+            tableName: DOCTORS_FACILITIES
             columns:
               - column:
                   name: DOCTORS_ID
@@ -88,7 +88,7 @@ databaseChangeLog:
                     nullable: false
                     foreignKey: true
                     foreignKeyName: fk_doctors_facilities_id
-                    reference: Doctors(id)
+                    reference: DOCTORS(ID)
               - column:
                   name: FACILITIES_ID
                   type: bigint
@@ -96,7 +96,7 @@ databaseChangeLog:
                     nullable: false
                     foreignKey: true
                     foreignKeyName: fk_facilities_doctors_id
-                    reference: Facilities(id)
+                    reference: FACILITIES(ID)
         - addPrimaryKey:
             tableName: DOCTORS_FACILITIES
             columnNames: DOCTORS_ID, FACILITIES_ID

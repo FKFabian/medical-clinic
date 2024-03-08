@@ -4,7 +4,7 @@ databaseChangeLog:
       author: FKFabian
       changes:
         - createTable:
-            tableName: Patients
+            tableName: PATIENTS
             columns:
               - column:
                   name: ID

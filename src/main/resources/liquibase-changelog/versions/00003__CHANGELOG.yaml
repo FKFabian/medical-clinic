@@ -4,7 +4,7 @@ databaseChangeLog:
       author: FKFabian
       changes:
         - createTable:
-            tableName: Visits
+            tableName: VISITS
             columns:
               - column:
                   name: ID
@@ -30,11 +30,11 @@ databaseChangeLog:
                   constraints:
                     foreignKey: true
                     foreignKeyName: fk_visits_patient_id
-                    references: Patients(id)
+                    references: PATIENTS(ID)
               - column:
                   name: DOCTOR_ID
                   type: bigint
                   constraints:
                     foreignKey: true
                     foreignKeyName: fk_visits_doctor_id
-                    references: Doctors(id)
+                    references: DOCTORS(ID)
