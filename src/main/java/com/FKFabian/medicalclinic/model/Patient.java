@@ -15,25 +15,26 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "Patients")
+@Table(name = "PATIENTS")
 @NoArgsConstructor
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, name = "EMAIL")
     private String email;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "PASSWORD")
     private String password;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, name = "ID_CARD_NO")
     private String idCardNo;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "FIRST_NAME")
     private String firstName;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "LAST_NAME")
     private String lastName;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "PHONE_NUMBER")
     private String phoneNumber;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "BIRTHDAY")
     private LocalDate birthday;
     @OneToMany(mappedBy = "patient")
     private List<Visit> visits = new ArrayList<>();

@@ -15,20 +15,21 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "Facilities")
+@Table(name = "FACILITIES")
 public class Facility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, name = "NAME")
     private String name;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "CITY")
     private String city;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "ZIP_CODE")
     private String zipCode;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "STREET")
     private String street;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "NO_BUILDING")
     private String noBuilding;
     @ManyToMany(mappedBy = "facilities")
     List<Doctor> doctors = new ArrayList<>();

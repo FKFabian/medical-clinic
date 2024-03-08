@@ -7,7 +7,7 @@ databaseChangeLog:
             tableName: Patients
             columns:
               - column:
-                  name: id
+                  name: ID
                   type: bigint
                   autoIncrement: true
                   constraints:
@@ -15,41 +15,41 @@ databaseChangeLog:
                     primaryKey: true
                     primaryKeyName: pk_patient_id
               - column:
-                  name: email
+                  name: EMAIL
                   type: varchar(255)
                   constraints:
                     nullable: false
                     unique: true
                     uniqueConstraintName: unique_patient_email
               - column:
-                  name: password
+                  name: PASSWORD
                   type: varchar(255)
                   constraints:
                     nullable: false
               - column:
-                  name: idCardNo
+                  name: ID_CARD_NO
                   type: varchar(255)
                   constraints:
                     nullable: false
                     unique: true
                     uniqueConstraintName: unique_patient_id_card_no
               - column:
-                  name: firstName
+                  name: FIRST_NAME
                   type: varchar(255)
                   constraints:
                     nullable: false
               - column:
-                  name: lastName
+                  name: LAST_NAME
                   type: varchar(255)
                   constraints:
                     nullable: false
               - column:
-                  name: phoneNumber
+                  name: PHONE_NUMBER
                   type: varchar(255)
                   constraints:
                     nullable: false
               - column:
-                  name: birthday
+                  name: BIRTHDAY
                   type: date
                   constraints:
                     nullable: false

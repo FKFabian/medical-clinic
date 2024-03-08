@@ -17,16 +17,17 @@ import java.time.LocalDateTime;
 public class Visit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "STARTING_VISIT_TIME")
     private LocalDateTime startingVisitTime;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "ENDING_VISIT_TIME")
     private LocalDateTime endingVisitTime;
     @ManyToOne
-    @JoinColumn(name = "patient_id")
+    @JoinColumn(name = "PATIENT_ID")
     private Patient patient;
     @ManyToOne
-    @JoinColumn(name = "doctor_id", nullable = false)
+    @JoinColumn(name = "DOCTOR_ID", nullable = false)
     private Doctor doctor;
 
     @Override
