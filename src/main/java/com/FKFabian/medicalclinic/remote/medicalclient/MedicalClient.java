@@ -11,7 +11,7 @@ import java.util.List;
 @FeignClient(name = "medicalClient", url = "localhost:8082")
 public interface MedicalClient {
 
-    @GetMapping("/patients/")
+    @GetMapping("/patients")
     List<PatientDTO> getPatients();
 
     @GetMapping("/patients/{email}")
@@ -23,7 +23,7 @@ public interface MedicalClient {
     @DeleteMapping("/patients/{email}")
     void delete(@PathVariable("email") String email);
 
-    @PostMapping("/patients/")
+    @PostMapping("/patients")
     PatientDTO addPatient(@RequestBody PatientCreateDto patientCreateDto);
 
     @PutMapping("/patients/{email}")
