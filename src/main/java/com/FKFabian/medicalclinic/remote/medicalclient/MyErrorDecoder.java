@@ -6,6 +6,7 @@ import feign.RetryableException;
 import feign.codec.ErrorDecoder;
 
 public class MyErrorDecoder implements ErrorDecoder {
+    private final ErrorDecoder defaultError = new Default();
 
     @Override
     public Exception decode(String s, Response response) {
@@ -19,6 +20,6 @@ public class MyErrorDecoder implements ErrorDecoder {
                     null,
                     response.request());
         }
-        return exception;
+        return defaultError.decode(s, response);
     }
 }
