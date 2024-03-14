@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "medicalClient", url = "localhost:8082")
+@FeignClient(name = "medicalClient", url = "localhost:8080", configuration = MyErrorDecoder.class)
 public interface MedicalClient {
 
     @GetMapping("/patients")
